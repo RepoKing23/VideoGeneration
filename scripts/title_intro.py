@@ -126,8 +126,11 @@ def main() -> int:
     f1, f2 = script_font(args.size1), script_font(args.size2)
     # Text block sits in the lower-centre band, clear of a top logo.
     cy1, cy2 = int(H * 0.585), int(H * 0.585) + int(args.size1 * 0.78)
-    letters = letter_layout(args.line1, f1, W // 2 - 40, cy1)
-    letters2 = letter_layout(args.line2, f2, W // 2 + 70, cy2) if args.line2 else []
+    # With a doodle the block shifts left to make room for it; without, centre.
+    has_doodle = bool(args.doodle_label.strip())
+    letters = letter_layout(args.line1, f1, W // 2 - (40 if has_doodle else 0), cy1)
+    letters2 = letter_layout(args.line2, f2,
+                             W // 2 + (70 if has_doodle else 40), cy2) if args.line2 else []
     all_letters = [(l, 0) for l in letters] + [(l, 1) for l in letters2]
     n_letters = len(all_letters)
 
@@ -193,8 +196,9 @@ def main() -> int:
             cd.text(pos, ch_, font=font, fill=(255, 255, 255, alpha))
 
         # Doodle rides the write-on of line 1, dies with the scatter.
+        # An empty label disables it entirely.
         da = ease((t - (write_start + 0.5)) / 0.5) * (1.0 - scatter_p)
-        if da > 0.02:
+        if args.doodle_label.strip() and da > 0.02:
             key = round(da, 2)
             if key not in doodle_cache:
                 doodle_cache[key] = sun_doodle(120, args.doodle_label, key)

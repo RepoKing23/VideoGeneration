@@ -49,6 +49,7 @@ safest home for the main line.
 | `duration` | `3.0` | how long the scene holds in the finished reel |
 | `start` | `0.0` | in-point inside the source clip (ignored for images) |
 | `fit` | `cover` | `cover`, `blur_pad`, `contain` |
+| `crop` | none | `{x, y, w, h}` as fractions; applied before framing and before any camera move, so a privacy crop cannot be undone by a later pan |
 | `motion` | `push_in` | `static`, `push_in`, `pull_out`, `pan_left`, `pan_right`, `pan_up`, `pan_down`, `ken_burns` |
 | `intensity` | `1.0` | scales the camera move; `0.5` is subtle, `2.0` is aggressive |
 | `speed` | `1.0` | `2.0` is double speed; the engine pulls a longer source slice to fill the scene |
@@ -77,6 +78,7 @@ Either inside a scene (times relative to the scene) or at the top level
 | `start` / `end` | **required** | seconds |
 | `preset` | `style.caption_preset` | override for this line |
 | `position` | `style.position` | override for this line |
+| `size` | `style.size` | override the type size for this line alone |
 | `accent_words` | `[]` | words drawn in the accent colour, matched case-insensitively |
 | `word_times` | auto | `[[start, end], ...]`, one pair per word, for transcript-accurate timing |
 
@@ -126,10 +128,34 @@ bed will not clip on phone speakers.
 
 ## `watermark`
 
+Either a text handle or a logo image.
+
 | key | default | notes |
 | --- | --- | --- |
 | `text` | none | e.g. `@yourhandle` |
-| `position` | `bottom` | `top` or `bottom` |
-| `opacity` | `0.55` | |
-| `size` | `38` | |
-| `font` | `style.font` | |
+| `image` | none | logo PNG, composited above the captions |
+| `position` | `bottom` | `top`, `bottom`; images also accept `left`, `right` |
+| `opacity` | `0.55` text / `0.85` image | |
+| `size` | `38` | text only |
+| `width` | `240` | image only, in pixels; height follows the aspect |
+| `margin` | `110` | image only, inset from the edge |
+| `font` | `style.font` | text only |
+
+Keep the margin at 100 or more: Instagram's own UI covers roughly the bottom
+15% of the frame, and a logo tucked into the corner disappears behind it.
+
+## Guards
+
+Two mistakes are easy to make and invisible in the output, so the engine
+catches them:
+
+- **Asking for more footage than exists.** A scene whose `start + duration`
+  runs past the end of its source used to yield a short scene, drift the
+  timeline, and silently cut off whatever caption sat at the end. It now fails
+  with the maximum duration, and the `speed` that would stretch it instead.
+- **Captions colliding.** Two captions sharing an anchor at the same moment
+  draw on top of each other — "Before" under "After" renders as "BAFTERE".
+  Scene captions are timed relative to the scene while transitions overlap the
+  scenes, so the last caption of one scene easily runs into the first of the
+  next. The earlier caption is trimmed to clear the later one, and the trim is
+  logged.

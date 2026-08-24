@@ -33,7 +33,11 @@ def normalise_scene(project: Project, scene: Scene, index: int, workdir: Path) -
         raise FileNotFoundError(f"scene {index}: missing source {src}")
 
     dst = workdir / f"scene_{index:03d}.mp4"
-    frames = max(1, round(scene.duration * project.fps))
+    # The motion expression is driven by input frames, and speed changes how many
+    # of those there are for a given scene length.
+    is_still = _is_image(src)
+    frames = max(1, round(scene.duration * project.fps
+                          * (1.0 if is_still else scene.speed)))
     chain = []
     if scene.crop:
         c = scene.crop
@@ -51,15 +55,28 @@ def normalise_scene(project: Project, scene: Scene, index: int, workdir: Path) -
     ]
 
     args: list[str] = []
-    if _is_image(src):
+    if is_still:
         args += ["-loop", "1", "-framerate", str(project.fps), "-t", f"{scene.duration}", "-i", str(src)]
     else:
         # Source is trimmed before scaling so we never decode more than needed.
         # speed != 1 means we must pull a longer slice of source to fill the scene.
         source_span = scene.duration * scene.speed
+        available = probe(src)["duration"] - scene.start
+        if source_span > available + 0.05:
+            # Left unchecked ffmpeg just yields a short scene, the timeline drifts
+            # and whatever caption sat at the end is silently cut off.
+            raise ValueError(
+                f"scene {index} ({Path(scene.src).name}): needs {source_span:.2f}s "
+                f"from {scene.start:.2f}s but only {max(0.0, available):.2f}s remain. "
+                f"Shorten duration to {max(0.0, available) / scene.speed:.2f}s, "
+                f"lower start, or set speed below "
+                f"{max(0.01, available / scene.duration):.2f} to stretch it."
+            )
         args += ["-ss", f"{scene.start}", "-t", f"{source_span}", "-i", str(src)]
         if scene.speed != 1.0:
-            chain.insert(0, f"setpts=PTS/{scene.speed}")
+            # After zoompan, which rebuilds timestamps from its fps option and
+            # would otherwise throw this away.
+            chain.append(f"setpts=PTS/{scene.speed}")
 
     ffmpeg([
         *args,
@@ -153,7 +170,8 @@ def assemble(project: Project, clips: list[Path], workdir: Path) -> Path:
 
 
 def build_audio(project: Project, scene_audio: dict[int, Path],
-                starts: list[float], total: float) -> tuple[list[str], list[str], str | None]:
+                starts: list[float], total: float,
+                first_input: int = 1) -> tuple[list[str], list[str], str | None]:
     """Build the audio graph.  Returns (extra ffmpeg inputs, filter steps, label).
 
     Music sits under everything, scene audio drops in at its timeline offset,
@@ -163,7 +181,7 @@ def build_audio(project: Project, scene_audio: dict[int, Path],
     inputs: list[str] = []
     steps: list[str] = []
     stems: list[str] = []
-    idx = 1  # input 0 is the silent video edit
+    idx = first_input  # input 0 is the silent video edit, then any logo
 
     music_label = None
     if cfg.get("music"):
@@ -304,6 +322,27 @@ def video_finish_chain(project: Project, ass_path: Path | None, total: float) ->
     return chain
 
 
+def logo_overlay(project: Project, logo_index: int,
+                 base: str, out: str) -> list[str]:
+    """Composite a logo PNG over the finished frame.
+
+    Drawn last so it sits above the captions, and inset from the edges to clear
+    Instagram's own UI, which covers roughly the bottom 15% of the frame.
+    """
+    wm = project.watermark
+    width = int(wm.get("width", 240))
+    opacity = float(wm.get("opacity", 0.85))
+    margin = int(wm.get("margin", 110))
+    position = wm.get("position", "bottom")
+    x = {"left": f"{margin}", "right": f"W-w-{margin}"}.get(position, "(W-w)/2")
+    y = f"{margin}" if position == "top" else f"H-h-{margin}"
+    return [
+        f"[{logo_index}:v]scale={width}:-1:flags=lanczos,format=rgba,"
+        f"colorchannelmixer=aa={opacity}[logo]",
+        f"[{base}][logo]overlay={x}:{y}:format=auto[{out}]",
+    ]
+
+
 def _font_file(project: Project, family: str) -> Path:
     """Map a font family name to a file in media/fonts."""
     fonts_dir = project.repo_root / "media" / "fonts"
@@ -337,7 +376,37 @@ def collect_captions(project: Project, starts: list[float]):
                 ),
             )
             out.append(shifted)
-    return sorted(out, key=lambda c: c.start)
+    out.sort(key=lambda c: c.start)
+    resolve_overlaps(out)
+    return out
+
+
+def resolve_overlaps(captions, gap: float = 0.12, log=print) -> list:
+    """Trim captions that would render on top of one another.
+
+    Two captions sharing an anchor at the same moment draw over each other -
+    "Before" under "After" reads as "BAFTERE". This is easy to cause by
+    accident, because a scene's captions are timed relative to the scene while
+    transitions overlap the scenes themselves, so the last caption of one scene
+    can run past the first caption of the next.
+
+    The earlier caption is trimmed to end just before the later one starts.
+    Nothing legible is lost - the overlap was unreadable by definition.
+    """
+    for i, a in enumerate(captions):
+        for b in captions[i + 1:]:
+            if b.start >= a.end:
+                break
+            if (a.position or "") != (b.position or ""):
+                continue
+            trimmed = b.start - gap
+            if trimmed <= a.start:
+                log(f"      WARNING: {a.text!r} and {b.text!r} overlap at the same "
+                    f"position and cannot be separated - move one of them")
+                continue
+            log(f"      trimmed {a.text!r} to {trimmed:.2f}s so it clears {b.text!r}")
+            a.end = trimmed
+    return captions
 
 
 def render(project: Project, workdir: Path | None = None, log=print) -> Path:
@@ -375,11 +444,27 @@ def render(project: Project, workdir: Path | None = None, log=print) -> Path:
             f"(preset: {project.caption_preset})")
 
     log("[3/3] grading, burning captions, mixing audio")
-    audio_inputs, audio_steps, audio_label = build_audio(project, scene_audio, starts, total)
+    logo_path = None
+    if (project.watermark or {}).get("image"):
+        logo_path = project.resolve(project.watermark["image"])
+        if not logo_path.exists():
+            raise FileNotFoundError(f"watermark image not found: {logo_path}")
+
+    logo_inputs = ["-i", str(logo_path)] if logo_path else []
+    first_audio_input = 2 if logo_path else 1
+    audio_inputs, audio_steps, audio_label = build_audio(
+        project, scene_audio, starts, total, first_input=first_audio_input)
     vchain = video_finish_chain(project, ass_path, total)
 
-    filter_steps = [f"[0:v]{','.join(vchain)}[vout]"] + audio_steps
-    args = ["-i", str(edit), *audio_inputs,
+    if logo_path:
+        filter_steps = [f"[0:v]{','.join(vchain)}[vbase]"]
+        filter_steps += logo_overlay(project, 1, "vbase", "vout")
+        log(f"      logo: {logo_path.name}")
+    else:
+        filter_steps = [f"[0:v]{','.join(vchain)}[vout]"]
+    filter_steps += audio_steps
+
+    args = ["-i", str(edit), *logo_inputs, *audio_inputs,
             "-filter_complex", ";".join(filter_steps),
             "-map", "[vout]"]
     if audio_label:

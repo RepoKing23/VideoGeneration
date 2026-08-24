@@ -1,10 +1,10 @@
 {
-  "name": "zen-lip-filler",
+  "name": "lip-filler-soft",
   "output": {
     "width": 1080,
     "height": 1920,
     "fps": 30,
-    "file": "out/zen-lip-filler.mp4",
+    "file": "out/lip-filler-soft.mp4",
     "crf": 19,
     "preset": "medium"
   },
@@ -38,7 +38,7 @@
     {
       "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
       "start": 0.9,
-      "duration": 4.4,
+      "duration": 4.2,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.35,
@@ -173,7 +173,8 @@
           "position": "center_low",
           "size": 106
         }
-      ]
+      ],
+      "speed": 0.68
     }
   ]
 }

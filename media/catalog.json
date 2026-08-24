@@ -45,5 +45,49 @@
     "height": 1440,
     "duration": 5.13,
     "has_audio": true
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-24-cleo-brand",
+    "raw": "media/raw/2026-08-24-cleo-brand/IMG_0313.jpg",
+    "library": "media/library/images/2026-08-24-cleo-brand/20260424-095339_IMG_0313.jpg",
+    "captured": "2026-04-24T09:53:39",
+    "width": 4000,
+    "height": 6000,
+    "duration": 0.04,
+    "has_audio": false
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-24-cleo-brand",
+    "raw": "media/raw/2026-08-24-cleo-brand/IMG_0332.jpg",
+    "library": "media/library/images/2026-08-24-cleo-brand/20260424-095354_IMG_0332.jpg",
+    "captured": "2026-04-24T09:53:54",
+    "width": 3658,
+    "height": 5489,
+    "duration": 0.04,
+    "has_audio": false
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-24-cleo-brand",
+    "raw": "media/raw/2026-08-24-cleo-brand/IMG_0329.jpg",
+    "library": "media/library/images/2026-08-24-cleo-brand/20260424-095356_IMG_0329.jpg",
+    "captured": "2026-04-24T09:53:56",
+    "width": 5854,
+    "height": 3903,
+    "duration": 0.04,
+    "has_audio": false
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-24-cleo-brand",
+    "raw": "media/raw/2026-08-24-cleo-brand/IMG_0339.jpg",
+    "library": "media/library/images/2026-08-24-cleo-brand/20260424-095404_IMG_0339.jpg",
+    "captured": "2026-04-24T09:54:04",
+    "width": 6000,
+    "height": 4000,
+    "duration": 0.04,
+    "has_audio": false
   }
 ]

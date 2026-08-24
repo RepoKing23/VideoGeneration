@@ -9,9 +9,9 @@
     "preset": "medium"
   },
   "style": {
-    "font": "Poppins ExtraBold",
+    "font": "Poppins SemiBold",
     "caption_preset": "word_pop",
-    "size": 118,
+    "size": 116,
     "primary": "#FFFFFF",
     "accent": "#EE7B8B",
     "outline_colour": "#2B1E1C",
@@ -19,45 +19,46 @@
     "shadow": 2.0,
     "position": "lower",
     "uppercase": true,
-    "letter_spacing": 0.0,
     "max_chars_per_line": 15
   },
   "grade": {
-    "contrast": 1.06,
+    "contrast": 1.05,
     "brightness": 0.015,
-    "saturation": 1.07,
-    "warmth": 0.15,
-    "vignette": true,
+    "saturation": 1.02,
+    "warmth": 0.0,
+    "vignette": false,
     "fade_in": 0.25,
     "fade_out": 0.5
   },
   "audio": {
     "silent_track": true
   },
+  "watermark": {
+    "image": "../../media/logo/cleo-logo-dark.png",
+    "position": "top",
+    "width": 330,
+    "opacity": 0.9,
+    "margin": 170,
+    "start": 13.8,
+    "end": 17.4,
+    "fade": 0.45
+  },
   "scenes": [
     {
-      "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
-      "start": 0.9,
-      "duration": 2.8,
+      "src": "assets/10_cleo_syringe.jpg",
+      "duration": 2.6,
       "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.7,
-      "crop": {
-        "x": 0.2917,
-        "y": 0.0,
-        "w": 0.7083,
-        "h": 1.0
-      },
+      "intensity": 0.5,
       "captions": [
         {
           "text": "Mini lip plump",
-          "start": 0.25,
-          "end": 2.7,
-          "position": "center_low",
+          "start": 0.2,
+          "end": 2.2,
           "accent_words": [
             "plump"
           ],
-          "size": 148
+          "size": 136
         }
       ]
     },
@@ -95,7 +96,7 @@
         {
           "text": "After",
           "start": 0.15,
-          "end": 2.8,
+          "end": 2.5,
           "accent_words": [
             "after"
           ],
@@ -137,7 +138,7 @@
         {
           "text": "After",
           "start": 0.15,
-          "end": 2.6,
+          "end": 2.25,
           "accent_words": [
             "after"
           ],
@@ -147,8 +148,8 @@
     },
     {
       "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
-      "start": 2.3,
-      "duration": 4.0,
+      "start": 1.2,
+      "duration": 2.8,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.4,
@@ -166,24 +167,38 @@
         {
           "text": "We go slow on purpose",
           "start": 0.2,
-          "end": 2.1,
+          "end": 2.3,
           "position": "center_low",
           "preset": "stack_reveal",
           "accent_words": [
             "slow"
           ],
-          "size": 112
-        },
+          "size": 106
+        }
+      ]
+    },
+    {
+      "src": "assets/11_cleo_present.jpg",
+      "duration": 3.6,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.35,
+      "transition": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "captions": [
         {
           "text": "Book your consult",
-          "start": 2.35,
-          "end": 3.9,
-          "position": "center_low",
+          "start": 0.4,
+          "end": 3.4,
           "preset": "bounce",
-          "size": 126
+          "size": 118,
+          "colour": "#2A2422",
+          "outline_colour": "#FFFFFF",
+          "position": "center_low"
         }
-      ],
-      "speed": 0.7
+      ]
     }
   ]
 }

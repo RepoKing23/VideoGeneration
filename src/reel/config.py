@@ -90,6 +90,8 @@ def _caption(raw: dict) -> Caption:
         accent_words=list(raw.get("accent_words", [])),
         position=position,
         size=int(raw["size"]) if raw.get("size") else None,
+        colour=raw.get("colour") or raw.get("color"),
+        outline_colour=raw.get("outline_colour") or raw.get("outline_color"),
         word_times=[tuple(t) for t in raw["word_times"]] if raw.get("word_times") else None,
     )
 

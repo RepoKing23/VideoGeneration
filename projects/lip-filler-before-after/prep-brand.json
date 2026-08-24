@@ -1,0 +1,12 @@
+{
+  "source_root": "media/library/images/2026-08-24-cleo-brand",
+  "output_dir": "assets",
+  "aspect": 0.5625,
+  "output_height": 1920,
+  "defaults": {"brighten": 0.02, "contrast": 1.03, "saturation": 1.02, "sharpen": 0.3},
+  "items": [
+    {"src": "20260424-095339_IMG_0313.jpg", "out": "10_cleo_syringe.jpg", "y0": 0.02, "y1": 1.0,  "center_x": 0.54},
+    {"src": "20260424-095354_IMG_0332.jpg", "out": "11_cleo_present.jpg", "y0": 0.0,  "y1": 1.0,  "center_x": 0.54},
+    {"src": "20260424-095404_IMG_0339.jpg", "out": "12_cleo_portrait.jpg","y0": 0.0,  "y1": 1.0,  "center_x": 0.50}
+  ]
+}

@@ -336,10 +336,27 @@ def logo_overlay(project: Project, logo_index: int,
     position = wm.get("position", "bottom")
     x = {"left": f"{margin}", "right": f"W-w-{margin}"}.get(position, "(W-w)/2")
     y = f"{margin}" if position == "top" else f"H-h-{margin}"
+
+    # A single logo rarely reads over every shot in a reel - a dark mark
+    # disappears on dark footage and a white one vanishes on a bright frame.
+    # Timing lets it show only where it actually holds up.
+    enable = ""
+    if wm.get("start") is not None or wm.get("end") is not None:
+        start = float(wm.get("start", 0))
+        end = float(wm.get("end", 1e6))
+        enable = f":enable='between(t,{start},{end})'"
+
+    fade = ""
+    if wm.get("fade"):
+        d = float(wm["fade"])
+        start = float(wm.get("start", 0))
+        fade = (f",fade=t=in:st={start}:d={d}:alpha=1"
+                if wm.get("start") is not None else f",fade=t=in:st=0:d={d}:alpha=1")
+
     return [
         f"[{logo_index}:v]scale={width}:-1:flags=lanczos,format=rgba,"
-        f"colorchannelmixer=aa={opacity}[logo]",
-        f"[{base}][logo]overlay={x}:{y}:format=auto[{out}]",
+        f"colorchannelmixer=aa={opacity}{fade}[logo]",
+        f"[{base}][logo]overlay={x}:{y}:format=auto{enable}[{out}]",
     ]
 
 
@@ -450,7 +467,12 @@ def render(project: Project, workdir: Path | None = None, log=print) -> Path:
         if not logo_path.exists():
             raise FileNotFoundError(f"watermark image not found: {logo_path}")
 
-    logo_inputs = ["-i", str(logo_path)] if logo_path else []
+    # Looped so the logo carries timestamps across the reel. A single still
+    # sits at t=0, which leaves any absolute-time fade stuck in its pre-fade
+    # state - the logo simply never appears.
+    logo_inputs = (["-loop", "1", "-framerate", str(project.fps),
+                    "-t", f"{total:.4f}", "-i", str(logo_path)]
+                   if logo_path else [])
     first_audio_input = 2 if logo_path else 1
     audio_inputs, audio_steps, audio_label = build_audio(
         project, scene_audio, starts, total, first_input=first_audio_input)

@@ -11,143 +11,147 @@
   "style": {
     "font": "Poppins",
     "caption_preset": "slide_up",
-    "size": 96,
+    "size": 92,
     "primary": "#FFFFFF",
     "accent": "#DFA093",
-    "outline_colour": "#3A2E2B",
-    "outline": 4.5,
+    "outline_colour": "#2B1E1C",
+    "outline": 3.5,
     "shadow": 1.5,
     "position": "lower",
     "uppercase": false,
-    "letter_spacing": 3.0,
-    "max_chars_per_line": 22
+    "max_chars_per_line": 22,
+    "letter_spacing": 3.0
   },
   "grade": {
     "contrast": 1.02,
-    "brightness": 0.02,
-    "saturation": 1.02,
-    "warmth": 0.1,
+    "brightness": 0.015,
+    "saturation": 1.0,
+    "warmth": 0.0,
     "vignette": false,
-    "fade_in": 0.7,
-    "fade_out": 0.9
+    "fade_in": 0.6,
+    "fade_out": 0.8
   },
   "audio": {
     "silent_track": true
   },
+  "watermark": {
+    "image": "../../media/logo/cleo-logo-dark.png",
+    "position": "top",
+    "width": 330,
+    "opacity": 0.9,
+    "margin": 170,
+    "start": 15.41,
+    "end": 19.46,
+    "fade": 0.6
+  },
   "scenes": [
     {
-      "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
-      "start": 0.9,
-      "duration": 4.2,
+      "src": "assets/10_cleo_syringe.jpg",
+      "duration": 3.07,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.35,
-      "crop": {
-        "x": 0.2917,
-        "y": 0.0,
-        "w": 0.7083,
-        "h": 1.0
-      },
       "captions": [
         {
-          "text": "your moment of calm",
-          "start": 0.8,
-          "end": 4.2,
-          "position": "center_low",
-          "size": 98
+          "text": "a mini lip plump",
+          "start": 0.22,
+          "end": 2.42,
+          "accent_words": [
+            "plump"
+          ],
+          "size": 106
         }
       ]
     },
     {
       "src": "assets/01_before_front.jpg",
-      "duration": 3.0,
+      "duration": 2.83,
       "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.3,
+      "intensity": 0.32,
       "transition": {
         "type": "fade",
-        "duration": 0.7
+        "duration": 0.55
       },
       "captions": [
         {
-          "text": "Before",
-          "start": 0.3,
-          "end": 2.9,
-          "size": 118
+          "text": "before",
+          "start": 0.22,
+          "end": 2.18,
+          "size": 101
         }
       ]
     },
     {
       "src": "assets/04_after_front.jpg",
-      "duration": 3.4,
+      "duration": 3.42,
       "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.3,
+      "intensity": 0.32,
       "transition": {
-        "type": "slideleft",
-        "duration": 0.5
+        "type": "fade",
+        "duration": 0.55
       },
       "captions": [
         {
-          "text": "After",
-          "start": 0.3,
-          "end": 3.3,
-          "preset": "word_pop",
-          "size": 118,
+          "text": "after",
+          "start": 0.17,
+          "end": 2.77,
           "accent_words": [
             "after"
-          ]
+          ],
+          "size": 110
         }
       ]
     },
     {
       "src": "assets/02_before_side.jpg",
-      "duration": 2.8,
+      "duration": 2.6,
       "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.3,
+      "intensity": 0.32,
       "transition": {
         "type": "fade",
-        "duration": 0.7
+        "duration": 0.55
       },
       "captions": [
         {
-          "text": "Before",
-          "start": 0.3,
-          "end": 2.7,
-          "size": 118
+          "text": "before",
+          "start": 0.22,
+          "end": 1.95,
+          "size": 101
         }
       ]
     },
     {
       "src": "assets/03_after_side.jpg",
-      "duration": 3.2,
+      "duration": 3.19,
       "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.3,
+      "intensity": 0.32,
       "transition": {
-        "type": "slideleft",
-        "duration": 0.5
+        "type": "fade",
+        "duration": 0.55
       },
       "captions": [
         {
-          "text": "After",
-          "start": 0.3,
-          "end": 3.1,
-          "preset": "word_pop",
-          "size": 118,
+          "text": "after",
+          "start": 0.17,
+          "end": 2.54,
           "accent_words": [
             "after"
-          ]
+          ],
+          "size": 110
         }
       ]
     },
     {
       "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
-      "start": 2.2,
-      "duration": 4.2,
+      "start": 1.2,
+      "duration": 3.3,
       "fit": "cover",
-      "motion": "static",
+      "motion": "push_in",
+      "intensity": 0.28,
       "crop": {
         "x": 0.2917,
         "y": 0.0,
@@ -156,25 +160,42 @@
       },
       "transition": {
         "type": "fade",
-        "duration": 0.7
+        "duration": 0.55
       },
       "captions": [
         {
-          "text": "soft, natural, still you",
-          "start": 0.4,
-          "end": 2.4,
+          "text": "we go slow on purpose",
+          "start": 0.22,
+          "end": 2.65,
           "position": "center_low",
-          "size": 98
-        },
-        {
-          "text": "book your visit",
-          "start": 2.7,
-          "end": 4.1,
-          "position": "center_low",
-          "size": 106
+          "accent_words": [
+            "slow"
+          ],
+          "size": 82
         }
-      ],
-      "speed": 0.68
+      ]
+    },
+    {
+      "src": "assets/11_cleo_present.jpg",
+      "duration": 4.25,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.24,
+      "transition": {
+        "type": "fade",
+        "duration": 0.55
+      },
+      "captions": [
+        {
+          "text": "book your consult",
+          "start": 0.44,
+          "end": 3.6,
+          "size": 92,
+          "colour": "#2A2422",
+          "outline_colour": "#FFFFFF",
+          "position": "center_low"
+        }
+      ]
     }
   ]
 }

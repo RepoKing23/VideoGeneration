@@ -88,6 +88,19 @@ tags, the big ones are lottery tickets.
 Swap in your location tags — local intent converts far better than the
 nationwide ones.
 
+## On brand fit
+
+The logo — a thin serif "LUXURY BEAUTY by Cleo R" — reads elegant and
+restrained. Two cuts are rendered against it:
+
+- **`lip-filler-before-after.mp4`** (17.2s) — Poppins SemiBold, all-caps,
+  punchy word-by-word captions. More scroll-stopping, less like the logo.
+- **`lip-filler-soft.mp4`** (19.4s) — Poppins Regular, lowercase, letter-spaced,
+  slow crossfades. Noticeably closer to the brand mark.
+
+The soft cut is the better brand match; the punchy cut will likely hold
+attention better with strangers. Worth testing both.
+
 ## Before posting
 
 - **Consent.** This is an identifiable client's treatment imagery. Most regions

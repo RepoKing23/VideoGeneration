@@ -65,3 +65,27 @@ Always verify with a dense sweep before delivering:
 ```bash
 ffmpeg -i out/reel.mp4 -vf "fps=2,scale=150:-1,tile=9x4" -frames:v 1 sweep.jpg
 ```
+
+## Logos
+
+Brand marks usually arrive as dark art on a white background with no alpha,
+which would paste a white rectangle over the footage. `media/logo/` holds
+prepared versions instead:
+
+- `*-dark.png` — original ink, transparent background, for bright frames
+- `*-white.png` — same shape in white, for dark frames
+
+Both are trimmed to the ink so the configured `width` is the visible width
+rather than the width of a mostly-empty square.
+
+Pick per shot rather than globally. Measure before deciding:
+
+```python
+# mean luminance of the band the logo will occupy
+im.crop((int(w*0.2), int(h*0.84), int(w*0.8), int(h*0.94))).convert("L")
+```
+
+Above ~170 use the dark mark, below ~130 use the white one. In between, move
+it — a mark straddling a light/dark edge loses half of itself.
+
+`watermark.start` / `end` / `fade` limit it to the stretch where it reads.

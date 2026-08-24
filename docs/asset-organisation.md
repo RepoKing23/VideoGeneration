@@ -47,6 +47,24 @@ an after, is a decision about *one reel*. Keeping those in
 from the untouched original rather than inheriting an edit made for a different
 purpose.
 
+## Censoring instead of cropping
+
+When the client wants the full photo shown, privacy comes from a blur strip
+over the eyes plus a black canvas, declared per photo in prep.json:
+
+```json
+{ "canvas": true, "censor": {"y0": 0.0, "y1": 0.30, "blur": 90} }
+```
+
+The declared rect is the guaranteed-censored core - the feathered edge is
+drawn outside it, because feathering inward leaves a half-blended strip of
+recognisable detail just inside the band. Sharpening must run before the
+censor, never after, or it re-introduces exactly the edges the blur removed.
+
+Verify with high-frequency energy: render a control without the censor and
+require a >95% drop inside the band. Measure inset ~8px from the photo/canvas
+boundary - JPEG ringing along that hard edge reads as fake detail.
+
 ## Privacy crops
 
 Crops that remove a face are declared in `project.json` as a scene `crop`, not

@@ -31,7 +31,7 @@
     "fade_out": 0.5
   },
   "audio": {
-    "music": "../../media/library/audio/generated/lofi-72bpm.wav",
+    "music": "../../media/library/audio/generated/lofi-72bpm-long.wav",
     "music_gain_db": -2,
     "fade_in": 0.6,
     "fade_out": 1.4
@@ -44,7 +44,7 @@
       "opacity": 1.0,
       "margin": 50,
       "start": 0.3,
-      "end": 4.43,
+      "end": 4.3,
       "fade": 0.5
     },
     {
@@ -53,8 +53,8 @@
       "width": 580,
       "opacity": 1.0,
       "margin": 150,
-      "start": 15.06,
-      "end": 18.66,
+      "start": 16.3,
+      "end": 19.9,
       "fade": 0.5
     }
   ],
@@ -66,73 +66,9 @@
       "motion": "static"
     },
     {
-      "src": "assets/20_split_front.mp4",
-      "duration": 4.2,
-      "fit": "cover",
-      "motion": "static",
-      "transition": {
-        "type": "fade",
-        "duration": 0.22
-      },
-      "captions": [
-        {
-          "text": "Mini lip plump",
-          "start": 0.3,
-          "end": 3.6,
-          "accent_words": [
-            "plump"
-          ],
-          "size": 118,
-          "position": "upper"
-        }
-      ]
-    },
-    {
-      "src": "assets/02_before_side.jpg",
-      "duration": 2.2,
-      "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.45,
-      "transition": {
-        "type": "fade",
-        "duration": 0.22
-      },
-      "captions": [
-        {
-          "text": "Before",
-          "start": 0.2,
-          "end": 1.5,
-          "preset": "slide_up",
-          "size": 128
-        }
-      ]
-    },
-    {
-      "src": "assets/03_after_side.jpg",
-      "duration": 2.7,
-      "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.45,
-      "transition": {
-        "type": "slideleft",
-        "duration": 0.35
-      },
-      "captions": [
-        {
-          "text": "After",
-          "start": 0.15,
-          "end": 2.25,
-          "accent_words": [
-            "after"
-          ],
-          "size": 140
-        }
-      ]
-    },
-    {
       "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
-      "start": 1.2,
-      "duration": 2.8,
+      "start": 0.9,
+      "duration": 4.2,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.4,
@@ -148,15 +84,87 @@
       },
       "captions": [
         {
+          "text": "Mini lip plump",
+          "start": 0.25,
+          "end": 2.0,
+          "position": "center_low",
+          "accent_words": [
+            "plump"
+          ],
+          "size": 130
+        },
+        {
           "text": "We go slow on purpose",
-          "start": 0.2,
-          "end": 2.35,
+          "start": 2.15,
+          "end": 4.0,
           "position": "center_low",
           "preset": "stack_reveal",
           "accent_words": [
             "slow"
           ],
-          "size": 106
+          "size": 104
+        }
+      ]
+    },
+    {
+      "src": "assets/20_split_front.mp4",
+      "duration": 4.2,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.3
+      },
+      "captions": [
+        {
+          "text": "The result",
+          "start": 0.3,
+          "end": 3.7,
+          "accent_words": [
+            "result"
+          ],
+          "size": 118,
+          "position": "upper"
+        }
+      ]
+    },
+    {
+      "src": "assets/02_before_side.jpg",
+      "duration": 2.2,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.3
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.2,
+          "end": 1.5,
+          "preset": "slide_up",
+          "size": 128
+        }
+      ]
+    },
+    {
+      "src": "assets/03_after_side.jpg",
+      "duration": 2.7,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.35
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.15,
+          "end": 2.25,
+          "accent_words": [
+            "after"
+          ],
+          "size": 140
         }
       ]
     },

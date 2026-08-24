@@ -45,7 +45,7 @@
       "opacity": 1.0,
       "margin": 50,
       "start": 0.3,
-      "end": 4.35,
+      "end": 4.3,
       "fade": 0.5
     },
     {
@@ -54,8 +54,8 @@
       "width": 580,
       "opacity": 1.0,
       "margin": 150,
-      "start": 15.87,
-      "end": 19.88,
+      "start": 16.93,
+      "end": 20.94,
       "fade": 0.5
     }
   ],
@@ -67,76 +67,12 @@
       "motion": "static"
     },
     {
-      "src": "assets/20_split_front.mp4",
+      "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
+      "start": 0.9,
       "duration": 4.2,
       "fit": "cover",
-      "motion": "static",
-      "transition": {
-        "type": "fade",
-        "duration": 0.3
-      },
-      "captions": [
-        {
-          "text": "a mini lip plump",
-          "start": 0.3,
-          "end": 3.7,
-          "accent_words": [
-            "plump"
-          ],
-          "size": 94,
-          "position": "upper"
-        }
-      ],
-      "intensity": 0.7
-    },
-    {
-      "src": "assets/02_before_side.jpg",
-      "duration": 2.46,
-      "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.32,
-      "transition": {
-        "type": "fade",
-        "duration": 0.3
-      },
-      "captions": [
-        {
-          "text": "before",
-          "start": 0.2,
-          "end": 1.62,
-          "size": 102
-        }
-      ]
-    },
-    {
-      "src": "assets/03_after_side.jpg",
-      "duration": 3.02,
-      "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.32,
-      "transition": {
-        "type": "fade",
-        "duration": 0.35
-      },
-      "captions": [
-        {
-          "text": "after",
-          "start": 0.15,
-          "end": 2.43,
-          "accent_words": [
-            "after"
-          ],
-          "size": 112
-        }
-      ]
-    },
-    {
-      "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
-      "start": 1.2,
-      "duration": 3.14,
-      "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.28,
+      "intensity": 0.4,
       "crop": {
         "x": 0.2917,
         "y": 0.0,
@@ -149,14 +85,85 @@
       },
       "captions": [
         {
+          "text": "a mini lip plump",
+          "start": 0.25,
+          "end": 2.1,
+          "position": "center_low",
+          "accent_words": [
+            "plump"
+          ],
+          "size": 104
+        },
+        {
           "text": "we go slow on purpose",
-          "start": 0.2,
-          "end": 2.54,
+          "start": 2.15,
+          "end": 3.75,
           "position": "center_low",
           "accent_words": [
             "slow"
           ],
-          "size": 84
+          "size": 83
+        }
+      ]
+    },
+    {
+      "src": "assets/20_split_front.mp4",
+      "duration": 4.2,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.3
+      },
+      "captions": [
+        {
+          "text": "the result",
+          "start": 0.3,
+          "end": 3.7,
+          "accent_words": [
+            "result"
+          ],
+          "size": 94,
+          "position": "upper"
+        }
+      ]
+    },
+    {
+      "src": "assets/02_before_side.jpg",
+      "duration": 2.46,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.3
+      },
+      "captions": [
+        {
+          "text": "before",
+          "start": 0.2,
+          "end": 1.58,
+          "size": 102
+        }
+      ]
+    },
+    {
+      "src": "assets/03_after_side.jpg",
+      "duration": 3.02,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.35
+      },
+      "captions": [
+        {
+          "text": "after",
+          "start": 0.15,
+          "end": 2.36,
+          "accent_words": [
+            "after"
+          ],
+          "size": 112
         }
       ]
     },
@@ -165,7 +172,7 @@
       "duration": 4.26,
       "fit": "cover",
       "motion": "push_in",
-      "intensity": 0.24,
+      "intensity": 0.35,
       "transition": {
         "type": "fade",
         "duration": 0.4
@@ -174,7 +181,7 @@
         {
           "text": "book your consult",
           "start": 0.5,
-          "end": 3.76,
+          "end": 3.68,
           "size": 94,
           "colour": "#2A2422",
           "outline_colour": "#FFFFFF",

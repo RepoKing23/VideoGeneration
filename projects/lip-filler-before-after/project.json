@@ -40,49 +40,42 @@
     {
       "image": "../../media/logo/cleo-logo-dark.png",
       "position": "top",
-      "width": 300,
-      "opacity": 0.9,
-      "margin": 150,
-      "start": 0.35,
-      "end": 4.03,
+      "width": 380,
+      "opacity": 1.0,
+      "margin": 50,
+      "start": 0.3,
+      "end": 4.43,
       "fade": 0.5
     },
     {
       "image": "../../media/logo/cleo-logo-dark.png",
       "position": "top",
-      "width": 330,
-      "opacity": 0.9,
-      "margin": 170,
-      "start": 14.66,
-      "end": 18.26,
+      "width": 580,
+      "opacity": 1.0,
+      "margin": 150,
+      "start": 15.06,
+      "end": 18.66,
       "fade": 0.5
     }
   ],
   "scenes": [
     {
       "src": "assets/10_cleo_syringe.jpg",
-      "duration": 4.0,
+      "duration": 4.4,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.45,
       "captions": [
         {
-          "text": "another day",
-          "start": 0.55,
-          "end": 1.85,
+          "text": "another day\nat work",
+          "start": 0.45,
+          "end": 4.1,
           "preset": "slide_up",
-          "size": 128,
-          "position": "center_low",
-          "uppercase": false
-        },
-        {
-          "text": "at work",
-          "start": 1.95,
-          "end": 3.7,
-          "preset": "slide_up",
-          "size": 128,
-          "position": "center_low",
-          "colour": "#EE7B8B"
+          "size": 172,
+          "outline": 15.0,
+          "colour": "#FFFFFF",
+          "outline_colour": "#241C1A",
+          "position": "center_low"
         }
       ]
     },

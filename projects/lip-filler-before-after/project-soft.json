@@ -41,47 +41,42 @@
     {
       "image": "../../media/logo/cleo-logo-dark.png",
       "position": "top",
-      "width": 300,
-      "opacity": 0.9,
-      "margin": 150,
+      "width": 380,
+      "opacity": 1.0,
+      "margin": 50,
       "start": 0.4,
-      "end": 4.6,
-      "fade": 0.6
+      "end": 4.88,
+      "fade": 0.5
     },
     {
       "image": "../../media/logo/cleo-logo-dark.png",
       "position": "top",
-      "width": 330,
-      "opacity": 0.9,
-      "margin": 170,
-      "start": 16.3,
-      "end": 20.42,
-      "fade": 0.6
+      "width": 580,
+      "opacity": 1.0,
+      "margin": 150,
+      "start": 16.4,
+      "end": 20.41,
+      "fade": 0.5
     }
   ],
   "scenes": [
     {
       "src": "assets/10_cleo_syringe.jpg",
-      "duration": 4.6,
+      "duration": 4.93,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.32,
       "captions": [
         {
-          "text": "another day",
-          "start": 0.55,
-          "end": 2.04,
-          "size": 102,
-          "position": "center_low",
-          "uppercase": false
-        },
-        {
-          "text": "at work",
-          "start": 1.95,
-          "end": 4.07,
-          "size": 102,
-          "position": "center_low",
-          "colour": "#EE7B8B"
+          "text": "another day\nat work",
+          "start": 0.45,
+          "end": 4.43,
+          "preset": "slide_up",
+          "size": 140,
+          "outline": 9.0,
+          "colour": "#FFFFFF",
+          "outline_colour": "#241C1A",
+          "position": "center_low"
         }
       ]
     },
@@ -110,7 +105,7 @@
     },
     {
       "src": "assets/02_before_side.jpg",
-      "duration": 2.53,
+      "duration": 2.46,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.32,
@@ -122,14 +117,14 @@
         {
           "text": "before",
           "start": 0.2,
-          "end": 1.65,
+          "end": 1.62,
           "size": 102
         }
       ]
     },
     {
       "src": "assets/03_after_side.jpg",
-      "duration": 3.1,
+      "duration": 3.02,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.32,
@@ -141,7 +136,7 @@
         {
           "text": "after",
           "start": 0.15,
-          "end": 2.48,
+          "end": 2.43,
           "accent_words": [
             "after"
           ],
@@ -152,7 +147,7 @@
     {
       "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
       "start": 1.2,
-      "duration": 3.22,
+      "duration": 3.14,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.28,
@@ -170,7 +165,7 @@
         {
           "text": "we go slow on purpose",
           "start": 0.2,
-          "end": 2.59,
+          "end": 2.54,
           "position": "center_low",
           "accent_words": [
             "slow"
@@ -181,7 +176,7 @@
     },
     {
       "src": "assets/11_cleo_present.jpg",
-      "duration": 4.37,
+      "duration": 4.26,
       "fit": "cover",
       "motion": "push_in",
       "intensity": 0.24,
@@ -193,7 +188,7 @@
         {
           "text": "book your consult",
           "start": 0.5,
-          "end": 3.85,
+          "end": 3.76,
           "size": 94,
           "colour": "#2A2422",
           "outline_colour": "#FFFFFF",

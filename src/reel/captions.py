@@ -49,6 +49,7 @@ class Caption:
     size: int | None = None            # overrides the project default
     colour: str | None = None          # overrides style.primary for this line
     outline_colour: str | None = None  # overrides style.outline_colour
+    outline: float | None = None       # overrides style.outline width
     word_times: list[tuple[float, float]] | None = None
 
     @property
@@ -117,6 +118,18 @@ def _wrap(text: str, max_chars: int) -> str:
     return r"\N".join(lines)
 
 
+def _lines(text: str, style) -> str:
+    """Escape and line-break a caption.
+
+    A newline in the text is an explicit break and wins over the automatic
+    wrap, because greedy wrapping splits on width rather than on sense -
+    "ANOTHER DAY AT / WORK" instead of "ANOTHER DAY / AT WORK".
+    """
+    if "\n" in text:
+        return r"\N".join(_escape(part.strip()) for part in text.split("\n") if part.strip())
+    return _wrap(_escape(text), style.max_chars_per_line)
+
+
 def _escape(text: str) -> str:
     """Escape ASS control characters in user text."""
     return text.replace("\\", r"\\").replace("{", r"\{").replace("}", r"\}")
@@ -144,6 +157,10 @@ def _style_tags(cap, style) -> str:
     beats compromising the palette across the whole edit.
     """
     tags = _size_tag(cap)
+    if cap.outline is not None:
+        # A heavy border is what lets a big title survive a background that
+        # is bright in one place and dark in another.
+        tags += rf"\bord{cap.outline}"
     if cap.outline_colour:
         tags += rf"\3c{hex_to_tag(cap.outline_colour)}"
     return tags
@@ -213,7 +230,7 @@ def _preset_karaoke_line(cap, style, w, h, y):
 
 def _preset_slide_up(cap, style, w, h, y):
     """Line rises into place and fades, one event for the whole caption."""
-    body = _wrap(_escape(cap.text.upper() if style.uppercase else cap.text), style.max_chars_per_line)
+    body = _lines(cap.text.upper() if style.uppercase else cap.text, style)
     tag = (
         rf"{{\an5\move({w // 2},{y + 70},{w // 2},{y},0,260)"
         + _style_tags(cap, style) +
@@ -236,7 +253,7 @@ def _preset_typewriter(cap, style, w, h, y):
     for i in range(1, n + 1):
         start = cap.start + (i - 1) * step
         end = cap.start + i * step if i < n else cap.end
-        partial = _wrap(_escape("".join(chars[:i])), style.max_chars_per_line)
+        partial = _lines("".join(chars[:i]), style)
         cursor = "|" if i < n else ""
         tag = rf"{{\an5\pos({w // 2},{y}){_style_tags(cap, style)}\1c{hex_to_tag(_base_colour(cap, style))}}}"
         events.append((start, end, tag + partial + cursor))
@@ -245,7 +262,7 @@ def _preset_typewriter(cap, style, w, h, y):
 
 def _preset_bounce(cap, style, w, h, y):
     """Line drops in from above with an overshoot, then settles."""
-    body = _wrap(_escape(cap.text.upper() if style.uppercase else cap.text), style.max_chars_per_line)
+    body = _lines(cap.text.upper() if style.uppercase else cap.text, style)
     tag = (
         rf"{{\an5\pos({w // 2},{y})" + _style_tags(cap, style) +
         rf"\1c{hex_to_tag(_base_colour(cap, style))}"

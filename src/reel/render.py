@@ -355,8 +355,8 @@ def logo_overlay(wm: dict, logo_index: int, base: str, out: str) -> list[str]:
 
     return [
         f"[{logo_index}:v]scale={width}:-1:flags=lanczos,format=rgba,"
-        f"colorchannelmixer=aa={opacity}{fade}[logo]",
-        f"[{base}][logo]overlay={x}:{y}:format=auto{enable}[{out}]",
+        f"colorchannelmixer=aa={opacity}{fade}[logo{logo_index}]",
+        f"[{base}][logo{logo_index}]overlay={x}:{y}:format=auto{enable}[{out}]",
     ]
 
 

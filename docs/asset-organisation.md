@@ -69,8 +69,22 @@ ffmpeg -i out/reel.mp4 -vf "fps=2,scale=150:-1,tile=9x4" -frames:v 1 sweep.jpg
 ## Logos
 
 Brand marks usually arrive as dark art on a white background with no alpha,
-which would paste a white rectangle over the footage. `media/logo/` holds
-prepared versions instead:
+which would paste a white rectangle over the footage. Run them through
+`scripts/prepare_logo.py`, which writes the prepared versions into
+`media/logo/`:
+
+```bash
+python3 scripts/prepare_logo.py "Brand logo.png" --name brand-logo
+```
+
+Deriving alpha as a plain `255 - luminance` looks right and is wrong: a
+mid-grey anti-aliased stroke becomes a half-transparent pixel, so thin
+lettering renders at under half strength and washes out over footage. The
+first pass at this logo produced **zero** fully-opaque pixels, mean alpha 113.
+The script instead maps anything clearly ink to fully opaque and fills the
+mark with one solid colour, leaving only true edge pixels partial.
+
+It writes:
 
 - `*-dark.png` — original ink, transparent background, for bright frames
 - `*-white.png` — same shape in white, for dark frames
@@ -87,5 +101,17 @@ im.crop((int(w*0.2), int(h*0.84), int(w*0.8), int(h*0.94))).convert("L")
 
 Above ~170 use the dark mark, below ~130 use the white one. In between, move
 it — a mark straddling a light/dark edge loses half of itself.
+
+Check what is *behind* it too, not just the average brightness. A logo sized
+to fill the frame width may look bolder but overlap a subject's hair, and a
+dark mark over dark hair is invisible whatever its size. Measure where the
+subject starts:
+
+```python
+# fraction of dark pixels per row band - the subject's head shows up as a jump
+(band < 110).mean()
+```
+
+and size the mark to fit the clean region above it.
 
 `watermark.start` / `end` / `fade` limit it to the stretch where it reads.

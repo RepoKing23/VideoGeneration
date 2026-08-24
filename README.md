@@ -144,6 +144,22 @@ Supply `audio.music` and it loops to length, fades at both ends, and passes
 through a limiter. Add `audio.voiceover` too and the music ducks under the
 voice with a sidechain compressor rather than just sitting quieter.
 
+## Handwriting intro title
+
+The CapCut-style opener: large script text written on letter by letter with a
+soft glow, a small sun doodle, diamond sparkles, and the letters drifting apart
+as the scene ends. Composited in PIL over a slow push-in, one frame at a time,
+so every element's timing is explicit.
+
+```bash
+python3 scripts/title_intro.py bg.jpg out.mp4 \
+    --line1 "another day" --line2 "at work" --doodle-label "cleo r"
+```
+
+Use the output as an ordinary scene (`motion: static` - the push-in is baked
+in). White script needs a soft dark under-shadow to survive a bright
+background; the script draws one automatically.
+
 ## Before / after split reveal
 
 The comparison people actually stop for: a vertical divider sweeps across, one

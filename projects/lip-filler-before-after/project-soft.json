@@ -44,8 +44,8 @@
       "width": 380,
       "opacity": 1.0,
       "margin": 50,
-      "start": 0.4,
-      "end": 4.88,
+      "start": 0.3,
+      "end": 4.35,
       "fade": 0.5
     },
     {
@@ -54,31 +54,17 @@
       "width": 580,
       "opacity": 1.0,
       "margin": 150,
-      "start": 16.4,
-      "end": 20.41,
+      "start": 15.87,
+      "end": 19.88,
       "fade": 0.5
     }
   ],
   "scenes": [
     {
-      "src": "assets/10_cleo_syringe.jpg",
-      "duration": 4.93,
+      "src": "assets/21_intro_title.mp4",
+      "duration": 4.4,
       "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.32,
-      "captions": [
-        {
-          "text": "another day\nat work",
-          "start": 0.45,
-          "end": 4.43,
-          "preset": "slide_up",
-          "size": 140,
-          "outline": 9.0,
-          "colour": "#FFFFFF",
-          "outline_colour": "#241C1A",
-          "position": "center_low"
-        }
-      ]
+      "motion": "static"
     },
     {
       "src": "assets/20_split_front.mp4",

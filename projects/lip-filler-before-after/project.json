@@ -60,24 +60,10 @@
   ],
   "scenes": [
     {
-      "src": "assets/10_cleo_syringe.jpg",
+      "src": "assets/21_intro_title.mp4",
       "duration": 4.4,
       "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.45,
-      "captions": [
-        {
-          "text": "another day\nat work",
-          "start": 0.45,
-          "end": 4.1,
-          "preset": "slide_up",
-          "size": 172,
-          "outline": 15.0,
-          "colour": "#FFFFFF",
-          "outline_colour": "#241C1A",
-          "position": "center_low"
-        }
-      ]
+      "motion": "static"
     },
     {
       "src": "assets/20_split_front.mp4",

@@ -1,0 +1,13 @@
+# Render intermediates and outputs
+work/
+out/
+*_preview.mp4
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS noise
+.DS_Store
+Thumbs.db

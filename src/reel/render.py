@@ -34,7 +34,16 @@ def normalise_scene(project: Project, scene: Scene, index: int, workdir: Path) -
 
     dst = workdir / f"scene_{index:03d}.mp4"
     frames = max(1, round(scene.duration * project.fps))
-    chain = [
+    chain = []
+    if scene.crop:
+        c = scene.crop
+        # Cropping happens before framing, so a privacy crop is guaranteed to
+        # remove the region rather than have a later pan bring it back.
+        chain.append(
+            f"crop=iw*{float(c['w'])}:ih*{float(c['h'])}"
+            f":iw*{float(c['x'])}:ih*{float(c['y'])}"
+        )
+    chain += [
         fit_chain(scene.fit, project.width, project.height),
         zoompan_chain(scene.motion, project.width, project.height,
                       frames, project.fps, scene.intensity),
@@ -212,6 +221,14 @@ def build_audio(project: Project, scene_audio: dict[int, Path],
         idx += 1
 
     if not stems:
+        # No audio sources.  Instagram accepts a video with no audio stream, but
+        # a few upload paths behave better when one exists, so emit silence
+        # unless the project explicitly opts out.
+        if cfg.get("silent_track", True):
+            inputs += ["-f", "lavfi", "-t", f"{total:.4f}",
+                       "-i", "anullsrc=channel_layout=stereo:sample_rate=48000"]
+            steps.append(f"[{idx}:a]atrim=0:{total:.4f},asetpts=PTS-STARTPTS[aout]")
+            return inputs, steps, "aout"
         return [], [], None
 
     if len(stems) == 1:

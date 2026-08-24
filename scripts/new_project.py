@@ -151,7 +151,7 @@ def main() -> int:
         },
         "grade": {"contrast": 1.05, "saturation": 1.10, "warmth": 0.3,
                   "vignette": True, "fade_in": 0.25, "fade_out": 0.5},
-        "audio": {"music_gain_db": -9, "fade_in": 0.4, "fade_out": 1.2},
+        "audio": {"music_gain_db": -9, "fade_in": 0.4, "fade_out": 1.2, "silent_track": True},
         "scenes": scenes,
     }
     if args.music:

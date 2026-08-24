@@ -1,0 +1,179 @@
+{
+  "name": "zen-lip-filler",
+  "output": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "file": "out/zen-lip-filler.mp4",
+    "crf": 19,
+    "preset": "medium"
+  },
+  "style": {
+    "font": "Poppins",
+    "caption_preset": "slide_up",
+    "size": 96,
+    "primary": "#FFFFFF",
+    "accent": "#DFA093",
+    "outline_colour": "#3A2E2B",
+    "outline": 4.5,
+    "shadow": 1.5,
+    "position": "lower",
+    "uppercase": false,
+    "letter_spacing": 3.0,
+    "max_chars_per_line": 22
+  },
+  "grade": {
+    "contrast": 1.02,
+    "brightness": 0.02,
+    "saturation": 1.02,
+    "warmth": 0.1,
+    "vignette": false,
+    "fade_in": 0.7,
+    "fade_out": 0.9
+  },
+  "audio": {
+    "silent_track": true
+  },
+  "scenes": [
+    {
+      "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
+      "start": 0.9,
+      "duration": 4.4,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.35,
+      "crop": {
+        "x": 0.2917,
+        "y": 0.0,
+        "w": 0.7083,
+        "h": 1.0
+      },
+      "captions": [
+        {
+          "text": "your moment of calm",
+          "start": 0.8,
+          "end": 4.2,
+          "position": "center_low",
+          "size": 98
+        }
+      ]
+    },
+    {
+      "src": "assets/01_before_front.jpg",
+      "duration": 3.0,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.3,
+      "transition": {
+        "type": "fade",
+        "duration": 0.7
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.3,
+          "end": 2.9,
+          "size": 118
+        }
+      ]
+    },
+    {
+      "src": "assets/04_after_front.jpg",
+      "duration": 3.4,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.3,
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.5
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.3,
+          "end": 3.3,
+          "preset": "word_pop",
+          "size": 118,
+          "accent_words": [
+            "after"
+          ]
+        }
+      ]
+    },
+    {
+      "src": "assets/02_before_side.jpg",
+      "duration": 2.8,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.3,
+      "transition": {
+        "type": "fade",
+        "duration": 0.7
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.3,
+          "end": 2.7,
+          "size": 118
+        }
+      ]
+    },
+    {
+      "src": "assets/03_after_side.jpg",
+      "duration": 3.2,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.3,
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.5
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.3,
+          "end": 3.1,
+          "preset": "word_pop",
+          "size": 118,
+          "accent_words": [
+            "after"
+          ]
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
+      "start": 2.2,
+      "duration": 4.2,
+      "fit": "cover",
+      "motion": "static",
+      "crop": {
+        "x": 0.2917,
+        "y": 0.0,
+        "w": 0.7083,
+        "h": 1.0
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.7
+      },
+      "captions": [
+        {
+          "text": "soft, natural, still you",
+          "start": 0.4,
+          "end": 2.4,
+          "position": "center_low",
+          "size": 98
+        },
+        {
+          "text": "book your visit",
+          "start": 2.7,
+          "end": 4.1,
+          "position": "center_low",
+          "size": 106
+        }
+      ]
+    }
+  ]
+}

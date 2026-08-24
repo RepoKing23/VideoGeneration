@@ -1,0 +1,49 @@
+[
+  {
+    "kind": "image",
+    "shoot": "2026-08-23-lip-filler",
+    "raw": "media/raw/2026-08-23-lip-filler/IMG_8822.HEIC",
+    "library": "media/library/images/2026-08-23-lip-filler/20260823-114105_IMG_8822.jpg",
+    "captured": "2026-08-23T11:41:05",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-23-lip-filler",
+    "raw": "media/raw/2026-08-23-lip-filler/IMG_8824.HEIC",
+    "library": "media/library/images/2026-08-23-lip-filler/20260823-114117_IMG_8824.jpg",
+    "captured": "2026-08-23T11:41:17",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-23-lip-filler",
+    "raw": "media/raw/2026-08-23-lip-filler/IMG_8827.HEIC",
+    "library": "media/library/images/2026-08-23-lip-filler/20260823-120628_IMG_8827.jpg",
+    "captured": "2026-08-23T12:06:28",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "kind": "image",
+    "shoot": "2026-08-23-lip-filler",
+    "raw": "media/raw/2026-08-23-lip-filler/IMG_8828.HEIC",
+    "library": "media/library/images/2026-08-23-lip-filler/20260823-120634_IMG_8828.jpg",
+    "captured": "2026-08-23T12:06:34",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "kind": "clip",
+    "shoot": "2026-08-23-lip-filler",
+    "raw": "media/raw/2026-08-23-lip-filler/IMG_8831.MOV",
+    "library": "media/library/clips/2026-08-23-lip-filler/20260823-160702_IMG_8831.mov",
+    "captured": "2026-08-23T16:07:02",
+    "width": 1920,
+    "height": 1440,
+    "duration": 5.13,
+    "has_audio": true
+  }
+]

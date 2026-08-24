@@ -46,6 +46,7 @@ class Caption:
     preset: str | None = None          # overrides the project default
     accent_words: list[str] = field(default_factory=list)
     position: str | None = None
+    size: int | None = None            # overrides the project default
     word_times: list[tuple[float, float]] | None = None
 
     @property
@@ -129,13 +130,17 @@ def _is_accent(word: str, accent_words: list[str]) -> bool:
 # with their (start, end) times.
 # --------------------------------------------------------------------------
 
+def _size_tag(cap) -> str:
+    return rf"\fs{cap.size}" if cap.size else ""
+
+
 def _preset_word_pop(cap, style, w, h, y):
     """One word at a time, centred and large, with a scale punch."""
     events = []
     for word, start, end in _distribute(cap):
         colour = style.accent if _is_accent(word, cap.accent_words) else style.primary
         tag = (
-            rf"{{\an5\pos({w // 2},{y})"
+            rf"{{\an5\pos({w // 2},{y})" + _size_tag(cap) +
             rf"\1c{hex_to_tag(colour)}"
             r"\fscx62\fscy62"
             r"\t(0,90,\fscx108\fscy108)"
@@ -164,7 +169,7 @@ def _preset_stack_reveal(cap, style, w, h, y):
             else:
                 parts.append(rf"{{\1c{hex_to_tag(style.primary)}\fscx100\fscy100}}" + _escape(shown))
         line = _wrap_tagged(" ".join(parts), style.max_chars_per_line)
-        events.append((start, end, rf"{{\an5\pos({w // 2},{y})}}" + line))
+        events.append((start, end, rf"{{\an5\pos({w // 2},{y}){_size_tag(cap)}}}" + line))
     return events
 
 
@@ -177,7 +182,7 @@ def _preset_karaoke_line(cap, style, w, h, y):
         shown = word.upper() if style.uppercase else word
         parts.append(rf"{{\k{centis}}}" + _escape(shown))
     body = _wrap_tagged(" ".join(parts), style.max_chars_per_line)
-    tag = rf"{{\an5\pos({w // 2},{y})\fad(120,120)}}"
+    tag = rf"{{\an5\pos({w // 2},{y}){_size_tag(cap)}\fad(120,120)}}"
     return [(cap.start, cap.end, tag + body)]
 
 
@@ -186,6 +191,7 @@ def _preset_slide_up(cap, style, w, h, y):
     body = _wrap(_escape(cap.text.upper() if style.uppercase else cap.text), style.max_chars_per_line)
     tag = (
         rf"{{\an5\move({w // 2},{y + 70},{w // 2},{y},0,260)"
+        + _size_tag(cap) +
         rf"\1c{hex_to_tag(style.primary)}\fad(180,180)}}"
     )
     return [(cap.start, cap.end, tag + body)]
@@ -207,7 +213,7 @@ def _preset_typewriter(cap, style, w, h, y):
         end = cap.start + i * step if i < n else cap.end
         partial = _wrap(_escape("".join(chars[:i])), style.max_chars_per_line)
         cursor = "|" if i < n else ""
-        tag = rf"{{\an5\pos({w // 2},{y})\1c{hex_to_tag(style.primary)}}}"
+        tag = rf"{{\an5\pos({w // 2},{y}){_size_tag(cap)}\1c{hex_to_tag(style.primary)}}}"
         events.append((start, end, tag + partial + cursor))
     return events
 
@@ -216,7 +222,8 @@ def _preset_bounce(cap, style, w, h, y):
     """Line drops in from above with an overshoot, then settles."""
     body = _wrap(_escape(cap.text.upper() if style.uppercase else cap.text), style.max_chars_per_line)
     tag = (
-        rf"{{\an5\pos({w // 2},{y})\1c{hex_to_tag(style.primary)}"
+        rf"{{\an5\pos({w // 2},{y})" + _size_tag(cap) +
+        rf"\1c{hex_to_tag(style.primary)}"
         r"\fscx40\fscy40\frz-4"
         r"\t(0,140,\fscx112\fscy112\frz2)"
         r"\t(140,230,\fscx96\fscy96\frz0)"

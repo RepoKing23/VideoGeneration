@@ -23,6 +23,7 @@ class Scene:
     duration: float = 3.0
     start: float = 0.0                 # in-point within the source clip
     fit: str = "cover"
+    crop: dict | None = None           # {x, y, w, h} as fractions of the source
     motion: str = "push_in"
     intensity: float = 1.0
     speed: float = 1.0
@@ -88,6 +89,7 @@ def _caption(raw: dict) -> Caption:
         preset=preset,
         accent_words=list(raw.get("accent_words", [])),
         position=position,
+        size=int(raw["size"]) if raw.get("size") else None,
         word_times=[tuple(t) for t in raw["word_times"]] if raw.get("word_times") else None,
     )
 
@@ -132,11 +134,25 @@ def load(path: str | Path) -> Project:
         fit = s.get("fit", "cover")
         if fit not in ("cover", "blur_pad", "contain"):
             raise ValueError(f"scene {i}: unknown fit {fit!r}")
+        crop = s.get("crop")
+        if crop is not None:
+            missing = {"x", "y", "w", "h"} - crop.keys()
+            if missing:
+                raise ValueError(f"scene {i}: crop is missing {sorted(missing)}")
+            for key in ("x", "y", "w", "h"):
+                if not 0.0 <= float(crop[key]) <= 1.0:
+                    raise ValueError(
+                        f"scene {i}: crop.{key} must be a fraction between 0 and 1")
+            if float(crop["x"]) + float(crop["w"]) > 1.0001:
+                raise ValueError(f"scene {i}: crop x+w exceeds the frame")
+            if float(crop["y"]) + float(crop["h"]) > 1.0001:
+                raise ValueError(f"scene {i}: crop y+h exceeds the frame")
         scenes.append(Scene(
             src=s["src"],
             duration=float(s.get("duration", 3.0)),
             start=float(s.get("start", 0.0)),
             fit=fit,
+            crop=crop,
             motion=motion,
             intensity=float(s.get("intensity", 1.0)),
             speed=float(s.get("speed", 1.0)),

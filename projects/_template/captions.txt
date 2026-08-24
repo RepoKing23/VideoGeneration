@@ -1,0 +1,8 @@
+# One caption per line. Blank lines and # comments are ignored.
+# Keep each line short - roughly 3 to 6 words reads best on a phone.
+# Line 1 is the hook: it has about 1.5 seconds to stop the scroll.
+
+Your hook goes here
+Then the setup
+Then the payoff
+Save this for later

@@ -33,7 +33,23 @@ Check the pipeline is healthy at any time, with no media of your own:
 
 ## Getting your media in
 
-Put clips and images under `media/`:
+Commit your media to the working branch and push:
+
+```bash
+git checkout claude/instagram-reels-creation-l9i0z0
+cp ~/your-footage/*.mp4 media/clips/
+cp ~/your-photos/*.jpg media/images/
+git add media/ && git commit -m "Add reel source media" && git push
+```
+
+GitHub rejects single files over 100MB, so trim or compress anything larger
+before committing:
+
+```bash
+ffmpeg -i big.mov -c:v libx264 -crf 23 -vf scale=-2:1920 -c:a aac media/clips/big.mp4
+```
+
+Layout under `media/`:
 
 ```
 media/
@@ -46,6 +62,16 @@ media/
 
 Filenames sort alphabetically and that becomes the default scene order, so
 prefixing `01_`, `02_` is the easiest way to lock a running order up front.
+
+## Picking a caption look
+
+```bash
+python3 scripts/style_sampler.py --font Anton --accent "#FFE600"
+```
+
+Renders a reel demoing all six presets over gradient backgrounds, so you are
+judging the type rather than the footage. Swap `--font` and `--accent` to
+preview a different treatment.
 
 ## How a reel is described
 
@@ -88,6 +114,8 @@ re-timing scenes does not force you to re-time every caption.
 | `typewriter` | characters revealed left to right |
 | `bounce` | line drops in with an overshoot |
 
+`word_pop` is the default and the safest high-retention choice.
+
 Set one as the default in `style.caption_preset` and override per caption with
 `"preset"`. Captions are rendered through libass, which is what makes per-word
 timing and scale tweens possible.
@@ -104,6 +132,17 @@ timing and scale tweens possible.
 `pan_right`, `pan_up`, `pan_down`, `ken_burns`. Scale it with `intensity`
 (1.0 default). Every move is cropped out of a 2x supersampled canvas, which
 is what keeps it smooth rather than stepping a pixel at a time.
+
+## Audio
+
+If you plan to add a trending track in the Instagram app, render silent — the
+in-app track usually travels further than a baked-in one. The engine still
+writes a silent AAC stream, because a few upload paths mishandle a file with
+no audio stream at all. Set `"audio": {"silent_track": false}` to omit it.
+
+Supply `audio.music` and it loops to length, fades at both ends, and passes
+through a limiter. Add `audio.voiceover` too and the music ducks under the
+voice with a sidechain compressor rather than just sitting quieter.
 
 ## Layout
 

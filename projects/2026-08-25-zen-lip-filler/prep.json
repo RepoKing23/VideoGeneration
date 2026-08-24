@@ -1,0 +1,67 @@
+{
+  "source_root": "media/library/images/2026-08-23-lip-filler",
+  "output_dir": "assets",
+  "aspect": 0.5625,
+  "output_height": 1920,
+  "defaults": {
+    "brighten": 0.16,
+    "contrast": 1.04,
+    "saturation": 1.0,
+    "warmth": 0.1,
+    "sharpen": 0.45
+  },
+  "items": [
+    {
+      "src": "20260823-114105_IMG_8822.jpg",
+      "out": "01_before_front.jpg",
+      "rotate": 0,
+      "y0": 0.3,
+      "y1": 0.78,
+      "center_x": 0.45,
+      "gain": [
+        1.007,
+        0.972,
+        1.004
+      ]
+    },
+    {
+      "src": "20260823-114117_IMG_8824.jpg",
+      "out": "02_before_side.jpg",
+      "rotate": -4.0,
+      "y0": 0.4,
+      "y1": 0.88,
+      "center_x": 0.42,
+      "gain": [
+        1.031,
+        1.021,
+        1.031
+      ]
+    },
+    {
+      "src": "20260823-120628_IMG_8827.jpg",
+      "out": "03_after_side.jpg",
+      "rotate": -6.0,
+      "y0": 0.23,
+      "y1": 0.71,
+      "center_x": 0.34,
+      "gain": [
+        0.971,
+        0.98,
+        0.971
+      ]
+    },
+    {
+      "src": "20260823-120634_IMG_8828.jpg",
+      "out": "04_after_front.jpg",
+      "rotate": -3.0,
+      "y0": 0.24,
+      "y1": 0.72,
+      "center_x": 0.36,
+      "gain": [
+        0.993,
+        1.03,
+        0.996
+      ]
+    }
+  ]
+}

@@ -298,7 +298,9 @@ def video_finish_chain(project: Project, ass_path: Path | None, total: float) ->
             f":fontsdir='{escape_filter_path(fonts_dir)}'"
         )
 
-    wm = project.watermark or {}
+    marks = project.watermark
+    marks = marks if isinstance(marks, list) else ([marks] if marks else [])
+    wm = next((m for m in marks if m.get("text")), {})
     if wm.get("text"):
         font_file = _font_file(project, wm.get("font", project.style.font))
         y = {"top": "h*0.06", "bottom": "h*0.90"}.get(wm.get("position", "bottom"), "h*0.90")
@@ -322,14 +324,12 @@ def video_finish_chain(project: Project, ass_path: Path | None, total: float) ->
     return chain
 
 
-def logo_overlay(project: Project, logo_index: int,
-                 base: str, out: str) -> list[str]:
+def logo_overlay(wm: dict, logo_index: int, base: str, out: str) -> list[str]:
     """Composite a logo PNG over the finished frame.
 
     Drawn last so it sits above the captions, and inset from the edges to clear
     Instagram's own UI, which covers roughly the bottom 15% of the frame.
     """
-    wm = project.watermark
     width = int(wm.get("width", 240))
     opacity = float(wm.get("opacity", 0.85))
     margin = int(wm.get("margin", 110))
@@ -461,28 +461,34 @@ def render(project: Project, workdir: Path | None = None, log=print) -> Path:
             f"(preset: {project.caption_preset})")
 
     log("[3/3] grading, burning captions, mixing audio")
-    logo_path = None
-    if (project.watermark or {}).get("image"):
-        logo_path = project.resolve(project.watermark["image"])
-        if not logo_path.exists():
-            raise FileNotFoundError(f"watermark image not found: {logo_path}")
+    marks = project.watermark
+    marks = marks if isinstance(marks, list) else ([marks] if marks else [])
+    image_marks = [m for m in marks if m.get("image")]
 
-    # Looped so the logo carries timestamps across the reel. A single still
-    # sits at t=0, which leaves any absolute-time fade stuck in its pre-fade
-    # state - the logo simply never appears.
-    logo_inputs = (["-loop", "1", "-framerate", str(project.fps),
-                    "-t", f"{total:.4f}", "-i", str(logo_path)]
-                   if logo_path else [])
-    first_audio_input = 2 if logo_path else 1
+    logo_inputs: list[str] = []
+    for m in image_marks:
+        path = project.resolve(m["image"])
+        if not path.exists():
+            raise FileNotFoundError(f"watermark image not found: {path}")
+        # Looped so the logo carries timestamps across the reel. A single still
+        # sits at t=0, which leaves any absolute-time fade stuck in its pre-fade
+        # state - the logo simply never appears.
+        logo_inputs += ["-loop", "1", "-framerate", str(project.fps),
+                        "-t", f"{total:.4f}", "-i", str(path)]
+
+    first_audio_input = 1 + len(image_marks)
     audio_inputs, audio_steps, audio_label = build_audio(
         project, scene_audio, starts, total, first_input=first_audio_input)
     vchain = video_finish_chain(project, ass_path, total)
 
-    if logo_path:
-        filter_steps = [f"[0:v]{','.join(vchain)}[vbase]"]
-        filter_steps += logo_overlay(project, 1, "vbase", "vout")
-        log(f"      logo: {logo_path.name}")
-    else:
+    filter_steps = [f"[0:v]{','.join(vchain)}[vm0]"]
+    for i, m in enumerate(image_marks):
+        nxt = "vout" if i == len(image_marks) - 1 else f"vm{i + 1}"
+        filter_steps += logo_overlay(m, i + 1, f"vm{i}", nxt)
+        window = (f" {m['start']:.1f}-{m['end']:.1f}s"
+                  if m.get("start") is not None and m.get("end") is not None else "")
+        log(f"      logo: {Path(m['image']).name}{window}")
+    if not image_marks:
         filter_steps = [f"[0:v]{','.join(vchain)}[vout]"]
     filter_steps += audio_steps
 

@@ -144,6 +144,33 @@ Supply `audio.music` and it loops to length, fades at both ends, and passes
 through a limiter. Add `audio.voiceover` too and the music ducks under the
 voice with a sidechain compressor rather than just sitting quieter.
 
+## Before / after split reveal
+
+The comparison people actually stop for: a vertical divider sweeps across, one
+side before, the other after, settling on a centre split.
+
+```bash
+python3 scripts/split_reveal.py before.jpg after.jpg out.mp4 --duration 4.2
+```
+
+It only works if the two stills are aligned and colour-matched. If the mouth
+line jumps across the divider, or one side is brighter, it reads as a mistake
+rather than a result. `scripts/prep_photos.py` handles both - measure the
+offset by cross-correlating a region the treatment does not change (the nose,
+not the lips) and split the correction between the two crops.
+
+## Music
+
+No licensed track to hand:
+
+```bash
+python3 scripts/make_lofi.py bed.wav --duration 18 --bpm 72
+```
+
+Synthesises a lo-fi bed - seventh-chord keys, lazy two-and-four beat, upright
+bass, vinyl noise, rolled off hard at the top. Written rather than licensed, so
+there is no rights question about using it commercially.
+
 ## Layout
 
 ```

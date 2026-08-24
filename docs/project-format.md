@@ -128,7 +128,9 @@ bed will not clip on phone speakers.
 
 ## `watermark`
 
-Either a text handle or a logo image.
+Either a text handle or a logo image. Pass a **list** to place more than one -
+useful for showing a mark over the intro and again over the outro, where a
+single window would leave it stranded over footage it cannot be read against.
 
 | key | default | notes |
 | --- | --- | --- |
@@ -139,6 +141,8 @@ Either a text handle or a logo image.
 | `size` | `38` | text only |
 | `width` | `240` | image only, in pixels; height follows the aspect |
 | `margin` | `110` | image only, inset from the edge |
+| `start` / `end` | always on | seconds; limits the mark to where it reads |
+| `fade` | none | seconds; fades the mark in at `start` |
 | `font` | `style.font` | text only |
 
 Keep the margin at 100 or more: Instagram's own UI covers roughly the bottom

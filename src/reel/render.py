@@ -376,23 +376,26 @@ def _font_file(project: Project, family: str) -> Path:
 
 
 def collect_captions(project: Project, starts: list[float]):
-    """Merge per-scene (relative) and top-level (absolute) captions."""
+    """Merge per-scene (relative) and top-level (absolute) captions.
+
+    Scene captions are shifted with dataclasses.replace so every field comes
+    along - an earlier version copied fields by hand and silently dropped any
+    override added to Caption after it was written.
+    """
+    from dataclasses import replace
+
     out = list(project.captions)
     for i, scene in enumerate(project.scenes):
         for cap in scene.captions:
-            shifted = Caption(
-                text=cap.text,
+            out.append(replace(
+                cap,
                 start=starts[i] + cap.start,
                 end=starts[i] + cap.end,
-                preset=cap.preset,
-                accent_words=cap.accent_words,
-                position=cap.position,
                 word_times=(
                     [(starts[i] + s, starts[i] + e) for s, e in cap.word_times]
                     if cap.word_times else None
                 ),
-            )
-            out.append(shifted)
+            ))
     out.sort(key=lambda c: c.start)
     resolve_overlaps(out)
     return out

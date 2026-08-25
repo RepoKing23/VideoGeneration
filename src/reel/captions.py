@@ -50,6 +50,8 @@ class Caption:
     colour: str | None = None          # overrides style.primary for this line
     outline_colour: str | None = None  # overrides style.outline_colour
     outline: float | None = None       # overrides style.outline width
+    font: str | None = None            # overrides style.font for this line
+    case: str | None = None            # "keep" stops the style's uppercasing
     word_times: list[tuple[float, float]] | None = None
 
     @property
@@ -135,6 +137,12 @@ def _escape(text: str) -> str:
     return text.replace("\\", r"\\").replace("{", r"\{").replace("}", r"\}")
 
 
+def _shown(text: str, cap, style) -> str:
+    if style.uppercase and cap.case != "keep":
+        return text.upper()
+    return text
+
+
 def _is_accent(word: str, accent_words: list[str]) -> bool:
     stripped = word.strip(".,!?;:\"'()[]").lower()
     return any(stripped == a.strip().lower() for a in accent_words)
@@ -157,6 +165,8 @@ def _style_tags(cap, style) -> str:
     beats compromising the palette across the whole edit.
     """
     tags = _size_tag(cap)
+    if cap.font:
+        tags += rf"\fn{cap.font}"
     if cap.outline is not None:
         # A heavy border is what lets a big title survive a background that
         # is bright in one place and dark in another.
@@ -183,7 +193,7 @@ def _preset_word_pop(cap, style, w, h, y):
             r"\t(90,150,\fscx100\fscy100)"
             r"\fad(0,40)}"
         )
-        events.append((start, end, tag + _escape(word.upper() if style.uppercase else word)))
+        events.append((start, end, tag + _escape(_shown(word, cap, style))))
     return events
 
 
@@ -195,7 +205,7 @@ def _preset_stack_reveal(cap, style, w, h, y):
     for idx, (_, start, end) in enumerate(timed):
         parts = []
         for j, word in enumerate(words[: idx + 1]):
-            shown = word.upper() if style.uppercase else word
+            shown = _shown(word, cap, style)
             if j == idx:
                 parts.append(
                     rf"{{\1c{hex_to_tag(style.accent)}\fscx70\fscy70"
@@ -215,7 +225,7 @@ def _preset_karaoke_line(cap, style, w, h, y):
     parts = []
     for word, start, end in timed:
         centis = max(1, int(round((end - start) * 100)))
-        shown = word.upper() if style.uppercase else word
+        shown = _shown(word, cap, style)
         parts.append(rf"{{\k{centis}}}" + _escape(shown))
     body = _wrap_tagged(" ".join(parts), style.max_chars_per_line)
     # Karaoke normally takes its two colours from the style: PrimaryColour is
@@ -230,7 +240,7 @@ def _preset_karaoke_line(cap, style, w, h, y):
 
 def _preset_slide_up(cap, style, w, h, y):
     """Line rises into place and fades, one event for the whole caption."""
-    body = _lines(cap.text.upper() if style.uppercase else cap.text, style)
+    body = _lines(_shown(cap.text, cap, style), style)
     tag = (
         rf"{{\an5\move({w // 2},{y + 70},{w // 2},{y},0,260)"
         + _style_tags(cap, style) +
@@ -241,7 +251,7 @@ def _preset_slide_up(cap, style, w, h, y):
 
 def _preset_typewriter(cap, style, w, h, y):
     """Characters revealed left to right, then the full line holds."""
-    text = cap.text.upper() if style.uppercase else cap.text
+    text = _shown(cap.text, cap, style)
     chars = list(text)
     n = len(chars)
     if n == 0:
@@ -262,7 +272,7 @@ def _preset_typewriter(cap, style, w, h, y):
 
 def _preset_bounce(cap, style, w, h, y):
     """Line drops in from above with an overshoot, then settles."""
-    body = _lines(cap.text.upper() if style.uppercase else cap.text, style)
+    body = _lines(_shown(cap.text, cap, style), style)
     tag = (
         rf"{{\an5\pos({w // 2},{y})" + _style_tags(cap, style) +
         rf"\1c{hex_to_tag(_base_colour(cap, style))}"

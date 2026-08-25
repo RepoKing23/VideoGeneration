@@ -44,7 +44,9 @@ def divider_at(t: float, keys: list[tuple[float, float]]) -> float:
 
 
 def load_font(size: int) -> ImageFont.FreeTypeFont:
-    for name in ("Poppins-SemiBold.ttf", "Poppins-Medium.ttf", "Anton-Regular.ttf"):
+    """Gold script labels, matching the clinic's reference design."""
+    for name in ("GreatVibes-Regular.ttf", "Allura-Regular.ttf",
+                 "Poppins-SemiBold.ttf"):
         p = FONT_DIR / name
         if p.exists():
             return ImageFont.truetype(str(p), size)
@@ -57,11 +59,9 @@ def label(draw: ImageDraw.ImageDraw, text: str, cx: int, cy: int,
         return
     box = draw.textbbox((0, 0), text, font=font)
     x, y = cx - (box[2] - box[0]) // 2, cy - (box[3] - box[1]) // 2
-    for ox in (-3, 0, 3):
-        for oy in (-3, 0, 3):
-            if ox or oy:
-                draw.text((x + ox, y + oy), text, font=font, fill=(20, 14, 12, alpha))
-    draw.text((x, y), text, font=font, fill=(255, 255, 255, alpha))
+    # Soft dark shadow, then gold - the script face needs no outline on black.
+    draw.text((x + 3, y + 4), text, font=font, fill=(0, 0, 0, int(alpha * 0.6)))
+    draw.text((x, y), text, font=font, fill=(217, 169, 78, alpha))
 
 
 def main() -> int:
@@ -119,9 +119,9 @@ def main() -> int:
         draw = ImageDraw.Draw(overlay)
         if args.labels:
             fade = lambda v: int(max(0.0, min(1.0, v)) * 255)
-            label(draw, "BEFORE", int(W * 0.25), int(H * 0.83), font,
+            label(draw, "Before", int(W * 0.28), int(H * 0.86), font,
                   fade((pos - 0.30) / 0.16))
-            label(draw, "AFTER", int(W * 0.75), int(H * 0.83), font,
+            label(draw, "After", int(W * 0.72), int(H * 0.86), font,
                   fade((0.70 - pos) / 0.16))
         # The line only exists while there are two sides to divide.
         edge = min(pos, 1 - pos)

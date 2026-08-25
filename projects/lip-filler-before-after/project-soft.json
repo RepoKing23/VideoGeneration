@@ -139,10 +139,16 @@
       },
       "captions": [
         {
-          "text": "before",
+          "text": "Before",
           "start": 0.2,
           "end": 1.58,
-          "size": 102
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000",
+          "preset": "slide_up"
         }
       ]
     },
@@ -157,13 +163,16 @@
       },
       "captions": [
         {
-          "text": "after",
+          "text": "After",
           "start": 0.15,
           "end": 2.36,
-          "accent_words": [
-            "after"
-          ],
-          "size": 112
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000",
+          "preset": "slide_up"
         }
       ]
     },

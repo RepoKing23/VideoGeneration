@@ -60,6 +60,50 @@ def enhance(im: Image.Image, o: dict) -> Image.Image:
     return im
 
 
+_REMBG_SESSION = None
+
+
+def matte_black(im: Image.Image, opts: dict) -> Image.Image:
+    """Cut the subject out and composite over solid black.
+
+    Uses rembg (u2net). The alpha it returns is already soft at the edges;
+    an optional extra feather softens hairlines further. Falls back to a
+    brightness/saturation matte if rembg is unavailable - the walls behind
+    these photos are bright and grey, the subject is warm skin and dark hair.
+    """
+    global _REMBG_SESSION
+    try:
+        from rembg import remove, new_session
+        if _REMBG_SESSION is None:
+            _REMBG_SESSION = new_session(opts.get("model", "u2net"))
+        rgba = remove(im, session=_REMBG_SESSION)
+    except Exception as exc:                       # noqa: BLE001
+        print(f"  rembg unavailable ({exc}); using brightness matte")
+        rgba = _brightness_matte(im, opts)
+
+    alpha = rgba.split()[3]
+    feather = int(opts.get("feather", 0))
+    if feather:
+        alpha = alpha.filter(ImageFilter.GaussianBlur(feather))
+    black = Image.new("RGB", im.size, (0, 0, 0))
+    black.paste(rgba.convert("RGB"), (0, 0), alpha)
+    return black
+
+
+def _brightness_matte(im: Image.Image, opts: dict) -> Image.Image:
+    """Background = bright AND low-saturation pixels; subject keeps alpha."""
+    import numpy as np
+    hsv = np.asarray(im.convert("HSV"), dtype=np.int16)
+    lum = np.asarray(im.convert("L"), dtype=np.int16)
+    bg = (lum > int(opts.get("lum", 175))) & (hsv[..., 1] < int(opts.get("sat", 40)))
+    alpha = Image.fromarray(((~bg) * 255).astype("uint8"), "L")
+    alpha = alpha.filter(ImageFilter.MedianFilter(9))
+    alpha = alpha.filter(ImageFilter.GaussianBlur(int(opts.get("feather", 12))))
+    out = im.convert("RGBA")
+    out.putalpha(alpha)
+    return out
+
+
 def censor_region(im: Image.Image, c: dict) -> Image.Image:
     """Blur a rect of the photo (fractions of its size) beyond recognition.
 
@@ -170,6 +214,10 @@ def main() -> int:
             w0, h0 = im.size
             im = im.crop((int(w0 * trim), int(h0 * trim),
                           int(w0 * (1 - trim)), int(h0 * (1 - trim))))
+
+        matte = item.get("matte", recipe.get("matte"))
+        if matte:
+            im = matte_black(im, matte if isinstance(matte, dict) else {})
 
         target_h = recipe.get("output_height", 1920)
         canvas_mode = bool(item.get("canvas") or recipe.get("canvas"))

@@ -93,6 +93,8 @@ def _caption(raw: dict) -> Caption:
         colour=raw.get("colour") or raw.get("color"),
         outline_colour=raw.get("outline_colour") or raw.get("outline_color"),
         outline=float(raw["outline"]) if raw.get("outline") is not None else None,
+        font=raw.get("font"),
+        case=raw.get("case"),
         word_times=[tuple(t) for t in raw["word_times"]] if raw.get("word_times") else None,
     )
 

@@ -47,6 +47,23 @@ an after, is a decision about *one reel*. Keeping those in
 from the untouched original rather than inheriting an edit made for a different
 purpose.
 
+## Cutting the subject onto black
+
+The clinical presentation the client's reference shows - patient floating on
+pure black, gold script labels - comes from a `matte` step in prep.json:
+
+```json
+{ "matte": {"model": "u2net", "feather": 2} }
+```
+
+rembg (u2net) segments the subject; the alpha composites over solid black
+before enhancement and censoring. If rembg or its model download is
+unavailable, the step falls back to a brightness/saturation matte, which works
+on these photos because the wall is bright and grey while the subject is warm
+skin and dark hair. Verify the border region is pure black (corner sampling)
+and that the mouth-line alignment survived - the matte moves no pixels, so it
+should be exact.
+
 ## Censoring instead of cropping
 
 When the client wants the full photo shown, privacy comes from a blur strip

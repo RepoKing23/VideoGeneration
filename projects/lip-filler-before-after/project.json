@@ -143,7 +143,12 @@
           "start": 0.2,
           "end": 1.5,
           "preset": "slide_up",
-          "size": 128
+          "size": 200,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
         }
       ]
     },
@@ -161,10 +166,13 @@
           "text": "After",
           "start": 0.15,
           "end": 2.25,
-          "accent_words": [
-            "after"
-          ],
-          "size": 140
+          "size": 200,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000",
+          "preset": "slide_up"
         }
       ]
     },

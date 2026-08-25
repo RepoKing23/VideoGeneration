@@ -54,8 +54,8 @@
       "width": 580,
       "opacity": 1.0,
       "margin": 150,
-      "start": 16.93,
-      "end": 20.94,
+      "start": 18.68,
+      "end": 22.74,
       "fade": 0.5
     }
   ],
@@ -108,7 +108,7 @@
     },
     {
       "src": "assets/20_split_front.mp4",
-      "duration": 4.2,
+      "duration": 6.0,
       "fit": "cover",
       "motion": "static",
       "transition": {
@@ -119,7 +119,7 @@
         {
           "text": "the result",
           "start": 0.3,
-          "end": 3.7,
+          "end": 5.4,
           "accent_words": [
             "result"
           ],

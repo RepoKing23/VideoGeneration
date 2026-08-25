@@ -74,6 +74,12 @@ def main() -> int:
     ap.add_argument("--labels", action="store_true", default=True)
     ap.add_argument("--no-labels", dest="labels", action="store_false")
     ap.add_argument("--label-size", type=int, default=76)
+    ap.add_argument("--settle", type=float, default=0.5,
+                    help="where the divider comes to rest (0..1)")
+    ap.add_argument("--before-shift", type=int, default=0,
+                    help="px the BEFORE photo slides as the split settles")
+    ap.add_argument("--after-shift", type=int, default=0,
+                    help="px the AFTER photo slides as the split settles")
     ap.add_argument("--line-width", type=int, default=7)
     args = ap.parse_args()
 
@@ -84,16 +90,17 @@ def main() -> int:
     W, H = before.size
 
     d = args.duration
-    # 1.0 = all before, 0.0 = all after, 0.5 = the centre split people expect.
+    # 1.0 = all before, 0.0 = all after. Paced so the full AFTER holds for a
+    # quarter of the clip - it is the payoff, and the first cut rushed it.
     keys = [
         (0.00,          1.0),
-        (0.13 * d,      1.0),
-        (0.34 * d,      0.0),   # sweep across, revealing the result
-        (0.46 * d,      0.0),
-        (0.62 * d,      1.0),   # snap back for the comparison
-        (0.69 * d,      1.0),
-        (0.86 * d,      0.5),   # settle on the split
-        (d,             0.5),
+        (0.10 * d,      1.0),
+        (0.30 * d,      0.0),         # sweep across, revealing the result
+        (0.55 * d,      0.0),         # long, clean look at the after
+        (0.70 * d,      1.0),         # sweep back for the comparison
+        (0.78 * d,      1.0),
+        (0.90 * d,      args.settle), # ease onto the split and rest
+        (d,             args.settle),
     ]
 
     font = load_font(args.label_size)
@@ -106,14 +113,26 @@ def main() -> int:
          "-pix_fmt", "yuv420p", args.output],
         stdin=subprocess.PIPE)
 
+    settle_start, settle_end = 0.78 * d, 0.90 * d
+
     for i in range(total):
         t = i / args.fps
         pos = divider_at(t, keys)
         x = int(round(pos * W))
 
-        frame = after.copy()
+        # Both faces have their lips near the frame centre, so a centre split
+        # can only ever show one mouth. As the divider settles, each photo
+        # slides outward so each half showcases its own lips.
+        sp = smoothstep((t - settle_start) / max(0.01, settle_end - settle_start)) \
+            if t > settle_start else 0.0
+        bx, ax = int(sp * args.before_shift), int(sp * args.after_shift)
+
+        frame = Image.new("RGB", (W, H), (0, 0, 0))
+        frame.paste(after, (ax, 0))
         if x > 0:
-            frame.paste(before.crop((0, 0, x, H)), (0, 0))
+            b_layer = Image.new("RGB", (W, H), (0, 0, 0))
+            b_layer.paste(before, (bx, 0))
+            frame.paste(b_layer.crop((0, 0, x, H)), (0, 0))
 
         overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         draw = ImageDraw.Draw(overlay)

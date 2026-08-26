@@ -89,5 +89,49 @@
     "height": 4000,
     "duration": 0.04,
     "has_audio": false
+  },
+  {
+    "kind": "clip",
+    "shoot": "2026-08-26-clinic-room",
+    "raw": "media/raw/2026-08-26-clinic-room/IMG_8833.MOV",
+    "library": "media/library/clips/2026-08-26-clinic-room/20260823-162230_IMG_8833.mov",
+    "captured": "2026-08-23T16:22:30",
+    "width": 1920,
+    "height": 1080,
+    "duration": 27.61,
+    "has_audio": true
+  },
+  {
+    "kind": "clip",
+    "shoot": "2026-08-26-clinic-room",
+    "raw": "media/raw/2026-08-26-clinic-room/IMG_8834.MOV",
+    "library": "media/library/clips/2026-08-26-clinic-room/20260823-162308_IMG_8834.mov",
+    "captured": "2026-08-23T16:23:08",
+    "width": 1920,
+    "height": 1080,
+    "duration": 4.93,
+    "has_audio": true
+  },
+  {
+    "kind": "clip",
+    "shoot": "2026-08-26-clinic-room",
+    "raw": "media/raw/2026-08-26-clinic-room/IMG_8835.MOV",
+    "library": "media/library/clips/2026-08-26-clinic-room/20260823-162334_IMG_8835.mov",
+    "captured": "2026-08-23T16:23:34",
+    "width": 1920,
+    "height": 1080,
+    "duration": 3.27,
+    "has_audio": true
+  },
+  {
+    "kind": "clip",
+    "shoot": "2026-08-26-clinic-room",
+    "raw": "media/raw/2026-08-26-clinic-room/IMG_8836.MOV",
+    "library": "media/library/clips/2026-08-26-clinic-room/20260823-162346_IMG_8836.mov",
+    "captured": "2026-08-23T16:23:46",
+    "width": 1920,
+    "height": 1080,
+    "duration": 17.47,
+    "has_audio": true
   }
 ]

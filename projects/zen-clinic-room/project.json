@@ -1,0 +1,182 @@
+{
+  "name": "zen-clinic-room",
+  "output": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "file": "out/zen-clinic-room.mp4",
+    "crf": 19,
+    "preset": "medium"
+  },
+  "style": {
+    "font": "Poppins",
+    "caption_preset": "slide_up",
+    "size": 88,
+    "primary": "#FFFFFF",
+    "accent": "#D9A94E",
+    "outline_colour": "#14100E",
+    "outline": 2.5,
+    "shadow": 1.5,
+    "position": "center_low",
+    "uppercase": false,
+    "max_chars_per_line": 22,
+    "letter_spacing": 3.0
+  },
+  "grade": {
+    "contrast": 1.02,
+    "brightness": 0.03,
+    "gamma": 1.08,
+    "saturation": 0.98,
+    "warmth": 0.015,
+    "vignette": false,
+    "fade_in": 0.5,
+    "fade_out": 1.1
+  },
+  "audio": {
+    "music": "../../media/library/audio/generated/ambient-zen.wav",
+    "music_gain_db": -5,
+    "fade_in": 0.8,
+    "fade_out": 1.6
+  },
+  "watermark": [
+    {
+      "image": "../../media/logo/cleo-logo-white.png",
+      "position": "top",
+      "width": 400,
+      "opacity": 0.95,
+      "margin": 110,
+      "start": 0.5,
+      "end": 4.6,
+      "fade": 0.5
+    },
+    {
+      "image": "../../media/logo/cleo-logo-white.png",
+      "position": "top",
+      "width": 520,
+      "opacity": 1.0,
+      "margin": 190,
+      "start": 17.6,
+      "end": 20.9,
+      "fade": 0.5
+    }
+  ],
+  "scenes": [
+    {
+      "src": "assets/intro.mp4",
+      "duration": 5.2,
+      "fit": "cover",
+      "motion": "static"
+    },
+    {
+      "src": "../../media/library/clips/2026-08-26-clinic-room/20260823-162346_IMG_8836.mov",
+      "start": 12.2,
+      "duration": 5.0,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.7
+      },
+      "captions": [
+        {
+          "text": "step into the quiet",
+          "start": 0.7,
+          "end": 3.9,
+          "accent_words": ["quiet"],
+          "size": 92
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/clips/2026-08-26-clinic-room/20260823-162308_IMG_8834.mov",
+      "start": 1.3,
+      "duration": 3.4,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "dissolve",
+        "duration": 0.8
+      },
+      "captions": [
+        {
+          "text": "every detail, curated",
+          "start": 0.5,
+          "end": 2.9,
+          "accent_words": ["curated"],
+          "size": 86
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/clips/2026-08-26-clinic-room/20260823-162230_IMG_8833.mov",
+      "start": 16.8,
+      "duration": 4.2,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.3,
+      "transition": {
+        "type": "fade",
+        "duration": 0.8
+      },
+      "captions": [
+        {
+          "text": "designed for deep relaxation",
+          "start": 0.6,
+          "end": 3.6,
+          "accent_words": ["relaxation"],
+          "size": 86
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/clips/2026-08-26-clinic-room/20260823-162334_IMG_8835.mov",
+      "start": 0.1,
+      "duration": 3.2,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.35,
+      "transition": {
+        "type": "dissolve",
+        "duration": 0.8
+      },
+      "captions": [
+        {
+          "text": "where time slows down",
+          "start": 0.4,
+          "end": 2.8,
+          "accent_words": ["slows"],
+          "size": 86
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/clips/2026-08-26-clinic-room/20260823-162230_IMG_8833.mov",
+      "start": 22.6,
+      "duration": 3.9,
+      "fit": "cover",
+      "motion": "pull_out",
+      "intensity": 0.3,
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.8
+      },
+      "captions": [
+        {
+          "text": "your moment is waiting",
+          "start": 0.35,
+          "end": 2.0,
+          "accent_words": ["moment"],
+          "size": 88
+        },
+        {
+          "text": "book your visit",
+          "start": 2.1,
+          "end": 3.55,
+          "colour": "#D9A94E",
+          "size": 96,
+          "position": "lower"
+        }
+      ]
+    }
+  ]
+}

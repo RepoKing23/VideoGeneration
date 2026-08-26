@@ -14,6 +14,7 @@ on:
   push:
     paths:
       - ".github/drive-ingest.txt"
+      - ".github/workflows/ingest-drive-clips.yml"
   workflow_dispatch:
     inputs:
       files:
@@ -37,7 +38,7 @@ jobs:
       - name: Download from Drive
         run: |
           set -euo pipefail
-          pip install --quiet gdown
+          pip install --quiet --upgrade gdown
           files="${{ inputs.files || '' }}"
           if [ -z "$files" ]; then
             files=$(grep -v '^#' .github/drive-ingest.txt | tr '\n' ' ')
@@ -46,7 +47,7 @@ jobs:
           for pair in $files; do
             id="${pair%%:*}"; name="${pair##*:}"
             echo "fetching $name ($id)"
-            gdown --fuzzy "https://drive.google.com/uc?id=${id}" -O "/tmp/ingest/${name}"
+            gdown "https://drive.google.com/uc?id=${id}" -O "/tmp/ingest/${name}"
           done
           ls -l /tmp/ingest
       - name: Push data branch

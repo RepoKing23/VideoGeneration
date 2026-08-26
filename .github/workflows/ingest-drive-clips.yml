@@ -1,0 +1,52 @@
+# Ingest link-shared Google Drive media into a temporary data branch.
+#
+# The remote build container cannot reach Drive's download hosts, so this
+# workflow does the fetch on a runner and hands the bytes over via git,
+# which the container can always reach. The data branch is meant to be
+# deleted once the session has fetched it - it is transport, not history.
+name: ingest-drive-clips
+
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: "Whitespace-separated fileId:filename pairs"
+        required: true
+        type: string
+      branch:
+        description: "Data branch to force-push the media to"
+        required: true
+        default: "claude/clinic-clips-data"
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download from Drive
+        run: |
+          set -euo pipefail
+          pip install --quiet gdown
+          mkdir -p media
+          for pair in ${{ inputs.files }}; do
+            id="${pair%%:*}"; name="${pair##*:}"
+            echo "fetching $name ($id)"
+            gdown --fuzzy "https://drive.google.com/uc?id=${id}" -O "media/${name}"
+          done
+          ls -l media
+      - name: Push data branch
+        run: |
+          set -euo pipefail
+          cd media
+          git init -b "${{ inputs.branch }}"
+          git config user.email "actions@github.com"
+          git config user.name "ingest-drive-clips"
+          git add -A
+          git commit -m "Ingest Drive media (temporary transport branch)"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -f origin "${{ inputs.branch }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

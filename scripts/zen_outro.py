@@ -137,8 +137,11 @@ def main() -> int:
     while cta_font.getlength(cta_text) > W * 0.80 and cta_font.size > 40:
         cta_font = script_font(cta_font.size - 4)
 
-    sub_font = light_font(32)
-    sub_text = " ".join(args.subtext.upper()) if args.subtext else ""
+    sub_font = light_font(34)
+    if args.subtext and args.subtext.startswith("@"):
+        sub_text = args.subtext
+    else:
+        sub_text = " ".join(args.subtext.upper()) if args.subtext else ""
 
     rng = np.random.default_rng(args.seed)
     motes = make_motes(rng, 10)
@@ -253,7 +256,7 @@ def main() -> int:
                 tw = bbox[2] - bbox[0]
                 tx = W // 2 - tw // 2
                 draw.text((tx, sub_y), sub_text, font=sub_font,
-                          fill=(90, 80, 70, alpha_sub))
+                          fill=(80, 65, 50, alpha_sub))
 
         frame.alpha_composite(overlay)
         proc.stdin.write(frame.convert("RGB").tobytes())

@@ -1,0 +1,377 @@
+{
+  "name": "zen-lip-filler-reel",
+  "output": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "file": "out/zen-lip-filler-reel.mp4",
+    "crf": 19,
+    "preset": "medium"
+  },
+  "style": {
+    "font": "Poppins",
+    "caption_preset": "slide_up",
+    "size": 88,
+    "primary": "#FFFFFF",
+    "accent": "#D9A94E",
+    "outline_colour": "#14100E",
+    "outline": 2.5,
+    "shadow": 1.5,
+    "position": "center_low",
+    "uppercase": false,
+    "max_chars_per_line": 22,
+    "letter_spacing": 3.0
+  },
+  "grade": {
+    "contrast": 1.02,
+    "brightness": 0.02,
+    "gamma": 1.06,
+    "saturation": 0.98,
+    "warmth": 0.01,
+    "vignette": false,
+    "fade_in": 0.5,
+    "fade_out": 1.1
+  },
+  "audio": {
+    "music": "../../media/library/audio/generated/ambient-zen.wav",
+    "music_gain_db": -5,
+    "fade_in": 0.8,
+    "fade_out": 1.6
+  },
+  "watermark": [
+    {
+      "image": "../../media/logo/cleo-logo-white.png",
+      "position": "top",
+      "width": 400,
+      "opacity": 0.95,
+      "margin": 110,
+      "start": 0.5,
+      "end": 4.6,
+      "fade": 0.5
+    },
+    {
+      "image": "../../media/logo/cleo-logo-white.png",
+      "position": "top",
+      "width": 520,
+      "opacity": 1.0,
+      "margin": 190,
+      "start": 31.0,
+      "end": 34.8,
+      "fade": 0.5
+    }
+  ],
+  "scenes": [
+    {
+      "src": "assets/intro.mp4",
+      "duration": 5.2,
+      "fit": "cover",
+      "motion": "static"
+    },
+    {
+      "src": "../../projects/lip-filler-before-after/assets/01_before_front.jpg",
+      "duration": 2.2,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.25,
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.7
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.3,
+          "end": 1.8,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "../../projects/lip-filler-before-after/assets/04_after_front.jpg",
+      "duration": 2.7,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.25,
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.35
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.2,
+          "end": 2.3,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "assets/split_front.mp4",
+      "duration": 5.0,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "captions": [
+        {
+          "text": "the difference",
+          "start": 0.4,
+          "end": 4.4,
+          "accent_words": ["difference"],
+          "size": 86,
+          "position": "upper"
+        }
+      ]
+    },
+    {
+      "src": "../../projects/lip-filler-before-after/assets/02_before_side.jpg",
+      "duration": 2.2,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.5
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.3,
+          "end": 1.8,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "../../projects/lip-filler-before-after/assets/03_after_side.jpg",
+      "duration": 2.7,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.35
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.2,
+          "end": 2.3,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "assets/split_side.mp4",
+      "duration": 5.0,
+      "fit": "cover",
+      "motion": "static",
+      "transition": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "captions": [
+        {
+          "text": "subtle and natural",
+          "start": 0.4,
+          "end": 4.4,
+          "accent_words": ["natural"],
+          "size": 86,
+          "position": "upper"
+        }
+      ]
+    },
+    {
+      "src": "../../projects/lip-filler-before-after/assets/10_cleo_syringe.jpg",
+      "duration": 2.8,
+      "fit": "cover",
+      "motion": "push_in",
+      "intensity": 0.3,
+      "transition": {
+        "type": "dissolve",
+        "duration": 0.8
+      },
+      "captions": [
+        {
+          "text": "precision in every drop",
+          "start": 0.5,
+          "end": 2.4,
+          "accent_words": ["precision"],
+          "size": 86
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/images/2026-08-23-lip-filler/20260823-114105_IMG_8822.jpg",
+      "duration": 2.0,
+      "fit": "cover",
+      "motion": "static",
+      "crop": {
+        "x": 0.08,
+        "y": 0.18,
+        "w": 0.84,
+        "h": 0.65
+      },
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.5
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.25,
+          "end": 1.6,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/images/2026-08-23-lip-filler/20260823-120634_IMG_8828.jpg",
+      "duration": 2.5,
+      "fit": "cover",
+      "motion": "static",
+      "crop": {
+        "x": 0.08,
+        "y": 0.15,
+        "w": 0.84,
+        "h": 0.65
+      },
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.35
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.2,
+          "end": 2.1,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/images/2026-08-23-lip-filler/20260823-114117_IMG_8824.jpg",
+      "duration": 2.0,
+      "fit": "cover",
+      "motion": "static",
+      "crop": {
+        "x": 0.0,
+        "y": 0.20,
+        "w": 0.75,
+        "h": 0.60
+      },
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.5
+      },
+      "captions": [
+        {
+          "text": "Before",
+          "start": 0.25,
+          "end": 1.6,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "../../media/library/images/2026-08-23-lip-filler/20260823-120628_IMG_8827.jpg",
+      "duration": 2.5,
+      "fit": "cover",
+      "motion": "static",
+      "crop": {
+        "x": 0.0,
+        "y": 0.15,
+        "w": 0.75,
+        "h": 0.65
+      },
+      "transition": {
+        "type": "slideleft",
+        "duration": 0.35
+      },
+      "captions": [
+        {
+          "text": "After",
+          "start": 0.2,
+          "end": 2.1,
+          "preset": "slide_up",
+          "size": 180,
+          "font": "Great Vibes",
+          "case": "keep",
+          "colour": "#D9A94E",
+          "outline": 0.0,
+          "outline_colour": "#000000"
+        }
+      ]
+    },
+    {
+      "src": "../../projects/lip-filler-before-after/assets/11_cleo_present.jpg",
+      "duration": 4.0,
+      "fit": "cover",
+      "motion": "pull_out",
+      "intensity": 0.3,
+      "transition": {
+        "type": "fadeblack",
+        "duration": 0.8
+      },
+      "captions": [
+        {
+          "text": "your moment is waiting",
+          "start": 0.4,
+          "end": 2.2,
+          "accent_words": ["moment"],
+          "size": 88
+        },
+        {
+          "text": "book your visit",
+          "start": 2.3,
+          "end": 3.65,
+          "colour": "#D9A94E",
+          "size": 96,
+          "position": "lower"
+        }
+      ]
+    }
+  ]
+}

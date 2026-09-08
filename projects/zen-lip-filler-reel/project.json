@@ -48,16 +48,6 @@
       "start": 0.5,
       "end": 4.6,
       "fade": 0.5
-    },
-    {
-      "image": "../../media/logo/cleo-logo-white.png",
-      "position": "top",
-      "width": 520,
-      "opacity": 1.0,
-      "margin": 190,
-      "start": 34.0,
-      "end": 38.5,
-      "fade": 0.5
     }
   ],
   "scenes": [
@@ -363,32 +353,14 @@
       ]
     },
     {
-      "src": "assets/outro_dark.jpg",
-      "duration": 4.0,
+      "src": "assets/outro.mp4",
+      "duration": 4.5,
       "fit": "cover",
-      "motion": "push_in",
-      "intensity": 0.15,
+      "motion": "static",
       "transition": {
         "type": "fadeblack",
         "duration": 0.8
-      },
-      "captions": [
-        {
-          "text": "your moment is waiting",
-          "start": 0.4,
-          "end": 2.2,
-          "accent_words": ["moment"],
-          "size": 88
-        },
-        {
-          "text": "book your visit",
-          "start": 2.3,
-          "end": 3.65,
-          "colour": "#D9A94E",
-          "size": 96,
-          "position": "lower"
-        }
-      ]
+      }
     }
   ]
 }
